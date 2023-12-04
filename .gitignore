@@ -1,0 +1,20 @@
+
+
+# dependencies
+/node_modules
+
+# Python
+__pycache__/
+*.pyc
+
+# Flask
+instance/
+.env
+.flaskenv
+
+# React
+/build
+
+# Editor-specific settings
+.vscode/
+.idea/
