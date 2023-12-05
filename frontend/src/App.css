@@ -1,0 +1,34 @@
+/* App.css */
+
+/* Color palette
+#031926
+#468189
+#77ACA2
+#9DBEBB
+#F4E9CD
+*/
+
+.App {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  height: calc(100vh - 60px);
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.Main-container {
+  flex-grow: 1; /* Take up all available space */
+  padding-top: 1%;
+  padding-left: 1%;
+  padding-right: 1%;
+  margin-left: 10%;
+  transition: margin-left 0.3s;
+}
+
+.Main-container.collapsed {
+  margin-left: 2%; /* Match collapsed sidebar width */
+}

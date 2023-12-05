@@ -1,0 +1,24 @@
+/*** HEADER STYLES ***/
+
+.header {
+    background-color: #031926;
+    color: white;
+    height: 60px;
+    padding: 10px;
+    text-align: right;
+  }
+  
+  .header-button {
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px;
+  }
+  
+  .header-logo {
+    height: 55px;
+    margin-right: 20px;
+    float: left;
+  }
