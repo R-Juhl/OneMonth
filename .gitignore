@@ -18,3 +18,5 @@ instance/
 # Editor-specific settings
 .vscode/
 .idea/
+
+venv/
