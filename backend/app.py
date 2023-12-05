@@ -1,3 +1,4 @@
+# app.py:
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -6,11 +7,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import URLSafeTimedSerializer as Serializer
 from datetime import datetime, timedelta
 
+# Modules:
+from modules.assistant_module import assistant
+
 app = Flask(__name__)
 cors_origin = os.environ.get("CORS_ORIGIN", "http://localhost:3000")
 CORS(app, origins=[cors_origin])
-
-api_key = os.environ.get("OPENAI_API_KEY")
 
 # Database configuration
 postgres_user = os.environ.get("POSTGRES_USER")
@@ -82,6 +84,13 @@ def verify_token():
         return jsonify({"user": user.name}), 200
     except:
         return jsonify({"error": "Invalid token"}), 401
+
+# Module functions/routes
+@app.route('/assistant', methods=['POST'])
+def handle_assistant():
+    data = request.get_json()
+    response_text = assistant(data)
+    return jsonify({"response": response_text})
 
 if __name__ == '__main__':
     app.run(debug=True)

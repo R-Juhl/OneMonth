@@ -1,0 +1,82 @@
+/* Assistant.css */
+.assistant-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  
+  .assistant-avatar {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .assistant-avatar img {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+  }
+  
+  .assistant-chat {
+    background-color: #f4e9cd;
+    border: 1px solid #77aca2;
+    border-radius: 8px;
+    padding: 10px;
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  .close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+  }
+  
+  .chat-history {
+    margin-bottom: 10px;
+  }
+  
+  .message {
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  
+  .message.user {
+    background-color: #77aca2;
+    color: white;
+    text-align: right;
+  }
+  
+  .message.assistant {
+    background-color: #468189;
+    color: white;
+    text-align: left;
+  }
+  
+  .chat-input {
+    display: flex;
+  }
+  
+  .chat-input input {
+    flex-grow: 1;
+    margin-right: 5px;
+  }
+  
+  .chat-input button {
+    background-color: #468189;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  

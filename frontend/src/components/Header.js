@@ -1,3 +1,4 @@
+// Header.js
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import logo from '../images/logo.png';
@@ -132,7 +133,7 @@ function Header() {
           <input type="password" name="password" placeholder="Password" onChange={(e) => handleChange(e, 'signup')} value={userData.password} />
           <button type="submit">Create User</button>
         </form>
-        <button onClick={() => setShowLogin(false)}>Close</button>
+        <button onClick={() => setShowSignUp(false)}>Close</button>
         {message && <p>{message}</p>}
       </Modal>
 
