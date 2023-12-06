@@ -1,15 +1,12 @@
-
-
 AI assistant basic functionality
-- make UI look good, scrool for entire history (with some cap?)
 - improve/add default context
+- personality settings?
 - enable/disable avatar voice: if enabled, AI output (not default msg) will output audio
 - audio input from user ??
 - use current screen print as context ??
 
 Sidebar:
-- fix issue where it does not move when scrolling
-    * should move up the height of the header until the header disappears, then it can be locked
+- should move up the height of the header until the header disappears, then it can be locked
 
 Settings sidebar tab
 - use modals for pages?
@@ -33,7 +30,7 @@ Profile sidebar tab
 
 
 
-
+Curriculum sidebar tab (main hub for study plan)
 
 
 

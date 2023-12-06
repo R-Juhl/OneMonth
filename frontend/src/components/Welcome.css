@@ -1,9 +1,54 @@
-/*** WELCOME COMPONENT STYLES ***/
+/* WELCOME COMPONENT STYLES */
 
-.welcome {
-    text-align: left;
-  }
+.welcome-container {
+  max-width: 50%;
+  margin: 0 auto;
+  padding: 20px;
+  color: #031926;
+}
 
-.welcome-center {
+.welcome-title {
+  color: #031926;
+  font-family: 'Bold', sans-serif;
   text-align: center;
+  margin-bottom: 30px;
+}
+
+.welcome-section {
+  background-color: #F4E9CD;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.welcome-section:hover {
+  transform: translateY(-5px);
+}
+
+.final-section {
+  background-color: #9DBEBB;
+}
+
+.welcome-section p {
+  font-size: 1.1em;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.welcome-section strong {
+  color: #468189;
+}
+
+.welcome-section em {
+  color: #031926;
+  font-style: italic;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  .welcome-container {
+    padding: 10px;
+  }
 }

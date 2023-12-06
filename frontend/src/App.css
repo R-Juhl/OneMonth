@@ -20,6 +20,10 @@
   pointer-events: none;
 }
 
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
 .Main-container {
   flex-grow: 1; /* Take up all available space */
   padding-top: 1%;
@@ -31,4 +35,28 @@
 
 .Main-container.collapsed {
   margin-left: 2%; /* Match collapsed sidebar width */
+}
+
+
+/* ======================
+   FONT-FACE DEFINITIONS 
+   ====================== */
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('./fonts/Montserrat-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Bold';
+  src: url('./fonts/Montserrat-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ExtraBold';
+  src: url('./fonts/Montserrat-ExtraBold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
 }
