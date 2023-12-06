@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import logo from '../images/logo.png';
 import './Header.css';
-import './Modals.css';
+import './Header_modals.css';
 
 Modal.setAppElement('#root');
 
@@ -115,14 +115,17 @@ function Header() {
   return (
     <div className="header">
       <img src={logo} alt="Logo" className="header-logo" />
-      <div>Current user: {currentUser}</div>
-      <button className="header-button" onClick={() => setShowSignUp(true)}>Sign up</button>
-        {isLoggedIn() ? (
-          <button className="header-button" onClick={handleLogout}>Logout</button>
-        ) : (
-          <button className="header-button" onClick={() => setShowLogin(true)}>Log in</button>
-        )}
-
+      <div className="header-right">
+        <div className="user-display"> Current user: {currentUser}</div>
+        <div className="button-group">
+        <button className="header-button" onClick={() => setShowSignUp(true)}>Sign up</button>
+          {isLoggedIn() ? (
+            <button className="header-button" onClick={handleLogout}>Logout</button>
+          ) : (
+            <button className="header-button" onClick={() => setShowLogin(true)}>Log in</button>
+          )}
+        </div>
+      </div>
       {/* Sign-Up Modal */}
       <Modal className="modal" isOpen={showSignUp} onRequestClose={() => setShowSignUp(false)}>
         <h2>Register</h2>

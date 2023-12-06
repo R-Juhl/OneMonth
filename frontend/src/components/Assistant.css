@@ -39,8 +39,8 @@
     animation: loadingAnimation 1.5s infinite;
     white-space: nowrap;
     color: #031926;
-    font-size: 15px; /* Adjust this value to increase the size */
-    font-weight: bold; /* Makes the text bold */
+    font-size: 15px;
+    font-weight: bold;
 }
 
 .assistant-chat {

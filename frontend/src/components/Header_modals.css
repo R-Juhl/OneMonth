@@ -33,6 +33,7 @@
     border: 1px solid #77ACA2;
     border-radius: 4px;
     box-sizing: border-box;
+    font-family: Montserrat;
 }
 
 /* Button Styles */
@@ -46,6 +47,9 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-weight: bold;
+    font-size: 15px;
+    font-family: Montserrat;
 }
 
 .modal button:hover {

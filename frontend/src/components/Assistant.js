@@ -2,25 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import './Assistant.css';
 
-// Import avatars
-import avatarDefault from '../images/assistants/avatar_default.png';
-import avatar1 from '../images/assistants/avatar_1.png';
-
-// Define avatars
-const avatars = {
-    avatar_d: avatarDefault,
-    avatar_1: avatar1,
-    avatar_2: "/path/to/avatar-2.png",
-    // setAvatar(avatars.avatar1); // To set to avatar 1
-  };
-
-function Assistant() {
+function Assistant({ avatar }) {
     const [isOpen, setIsOpen] = useState(false);
-    const [chatHistory, setChatHistory] = useState([{role: 'assistant', content: 'Hi, what can I help you with?'}]);
+    const [chatHistory, setChatHistory] = useState([{role: 'assistant', content: 'Hi, how can I help you?'}]);
     const [newMessage, setNewMessage] = useState('');
     const [personality] = useState('friendly and supportive');
     const [showHelpText, setShowHelpText] = useState(true);
-    const [avatar, setAvatar] = useState(avatars.avatar_d);
     const [msgLoading, setMsgLoading] = useState(false);
 
     const scrollToBottom = () => {
@@ -84,12 +71,9 @@ function Assistant() {
             });
             const data = await response.json();
             setChatHistory(currentHistory => [...currentHistory, {role: 'assistant', content: data.response}]);
-            //setMsgLoading(false);
         } catch (error) {
             console.error('Error sending message:', error);
-            //setMsgLoading(false);
         }
-        //document.querySelector('.chat-input textarea')?.blur();
         setNewMessage('');
         setMsgLoading(false);
     };
@@ -97,7 +81,7 @@ function Assistant() {
     return (
         <div className="assistant-container">
             <div className={`assistant-avatar ${isOpen ? 'open' : ''}`} onClick={handleAvatarClick}>
-                <img src={avatar} alt="Assistant Avatar"/>
+                <img src={avatar} alt="Assistant Avatar" />
                 {showHelpText && <div className="help-text"><span>Need help?<br></br> Click me</span></div>}
             </div>
             <div className="loading-container">

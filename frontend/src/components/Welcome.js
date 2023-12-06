@@ -6,7 +6,7 @@ function Welcome() {
 
   return (
     <div className="welcome-container">
-      <h1 className="welcome-title">Velkommen til På1Måned</h1>
+      <h1 className="welcome-title">Velkommen til EnMåned</h1>
       <div className="welcome-section">
         <p>Opdag en <strong>revolutionerende måde at gennemføre din gymnasielle uddannelse</strong> - hurtigere, smartere og mere engagerende end nogensinde før. Med på1måned, kan du fuldføre STX, HHX eller HTX på kun én måned ved fuldtidsstudie.</p>
       </div>

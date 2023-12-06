@@ -1,3 +1,13 @@
+
+
+For settings:
+    ai personality settings
+    implement actual language change functionality
+    delete account option?
+    changing app color palette
+    (some of these settings are just for dev and will be paid options in the app)
+
+
 AI assistant basic functionality
 - improve/add default context
 - personality settings?
@@ -5,29 +15,14 @@ AI assistant basic functionality
 - audio input from user ??
 - use current screen print as context ??
 
-Sidebar:
-- should move up the height of the header until the header disappears, then it can be locked
-
-Settings sidebar tab
-- use modals for pages?
-- how to structure pages? individual components? how to display them?
-- For settings:
-    include AI avatar selection
-    ai personality settings
-    language selection (that will be implemented at later stage)
-    delete account option?
-    changing app color palette
-    (some of these settings are just for dev and will be paid options in the app)
 
 Signup/login modals
 - make it so error messages are not shared, and also clear when closing modal
-
 
 Profile sidebar tab
 - for setting profile configuration. STX/HHX/HTX, learning style, etc.
     *for dev purposes
     *but later used as the intro questionnaire. Then keep it as page so user can always configure
-
 
 
 Curriculum sidebar tab (main hub for study plan)

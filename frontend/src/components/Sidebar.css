@@ -2,9 +2,9 @@
 
 .sidebar {
   height: calc(100vh);
-  background-color: #9DBEBB;
+  background-color: #F4E9CD;
   color: white;
-  position: absolute;
+  position: fixed;
   top: 80px;
   bottom: 0;
   left: 0;

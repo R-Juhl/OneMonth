@@ -1,0 +1,43 @@
+.tabs-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 40px;
+  height: 85vh;
+  transition: transform 0.3s ease;
+}
+
+.tab-button {
+  background: #9DBEBB;
+  border: none;
+  color: #031926;
+  padding: 20px;
+  width: 75%;
+  text-align: left;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  position: relative;
+}
+
+.tab-button-text {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: opacity 0.2s ease;
+}
+
+.tabs-container.collapsed .tab-button-text {
+  opacity: 0;
+}
+
+.tabs-container.collapsed {
+  transform: translateX(-110%);
+}
+
+.spacer {
+  flex-grow: 1;
+}
