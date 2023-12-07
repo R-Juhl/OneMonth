@@ -1,3 +1,6 @@
+Language support:
+    Implement centralized language setting on entire site
+
 
 
 For settings:
@@ -6,21 +9,23 @@ For settings:
     delete account option?
     changing app color palette
     (some of these settings are just for dev and will be paid options in the app)
+    Lock mechanic and visualization on options (palettes, avatars, etc.)
 
 
 AI assistant basic functionality
-- improve/add default context
-- personality settings?
-- enable/disable avatar voice: if enabled, AI output (not default msg) will output audio
-- audio input from user ??
-- use current screen print as context ??
+    improve/add default context
+    personality settings?
+    enable/disable avatar voice: if enabled, AI output (not default msg) will output audio
+    audio input from user ??
+    use current screen print as context ??
+    Vastly reduce available use with rate limit for users that are not logged in (only the basic ai assistant is available in this state)
 
 
 Signup/login modals
-- make it so error messages are not shared, and also clear when closing modal
+    make it so error messages are not shared, and also clear when closing modal
 
 Profile sidebar tab
-- for setting profile configuration. STX/HHX/HTX, learning style, etc.
+    for setting profile configuration. STX/HHX/HTX, learning style, etc.
     *for dev purposes
     *but later used as the intro questionnaire. Then keep it as page so user can always configure
 
@@ -28,9 +33,21 @@ Profile sidebar tab
 Curriculum sidebar tab (main hub for study plan)
 
 
+Email verification.
+    Standard link to verify.
+
+Get Started page tab
+    Will be (only) available conditional page tab when user not logged in.
+    When clicked, option to sign in or create user - effectively forcing user signups for app use
+    Next, upon first login to verified user, give 3 options for getting started: Free, Mentor, Unlimited, Custom (upload own studyplan(s) doc and app will work with this)
+        With short descriptions for each, and nice visual with icons
+        Choosing one will add a version id to the database for the specific user id
+        Option to upgrade version later
+        All free for dev
+    After selecting a user version, initialize app based on the specified version with relevant page tabs, etc.
 
 
-
+Do not verify token for opening page tabs and all other random clicks (for instance clicks in Settings.js modal)
 
 
 

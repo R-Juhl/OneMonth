@@ -1,14 +1,21 @@
 // Assistant.js
 import React, { useState, useEffect } from 'react';
+import parse from 'html-react-parser';
 import './Assistant.css';
+import { useLanguage } from '../contexts/LanguageContext';
+import en from '../languages/en.json';
+import dk from '../languages/dk.json';
 
 function Assistant({ avatar }) {
+    const { language } = useLanguage();
+    const text = language === 'en' ? en : dk;
     const [isOpen, setIsOpen] = useState(false);
-    const [chatHistory, setChatHistory] = useState([{role: 'assistant', content: 'Hi, how can I help you?'}]);
+    const [chatHistory, setChatHistory] = useState([{role: 'assistant', content: text.assistantGreeting}]);
     const [newMessage, setNewMessage] = useState('');
-    const [personality] = useState('friendly and supportive');
+    const [personality] = useState(text.assistantPersonalityDef);
     const [showHelpText, setShowHelpText] = useState(true);
     const [msgLoading, setMsgLoading] = useState(false);
+    const [loadingDots, setLoadingDots] = useState('');
 
     const scrollToBottom = () => {
         const chatHistoryEl = document.querySelector(".chat-history");
@@ -18,10 +25,26 @@ function Assistant({ avatar }) {
     };
 
     useEffect(() => {
+        setChatHistory([{role: 'assistant', content: text.assistantGreeting}]);
+    }, [language]);
+
+    useEffect(() => {
         if (isOpen) {
             scrollToBottom();
         }
     }, [isOpen, chatHistory]);
+
+    useEffect(() => {
+        let count = 0;
+        if (msgLoading) {
+            const intervalId = setInterval(() => {
+                setLoadingDots('.'.repeat(count % 4));
+                count++;
+            }, 500); // Adjust the timing as needed
+
+            return () => clearInterval(intervalId);
+        }
+    }, [msgLoading]);
 
     const handleAvatarClick = () => {
         setIsOpen(!isOpen);
@@ -66,7 +89,8 @@ function Assistant({ avatar }) {
                 body: JSON.stringify({
                     message: newMessage,
                     chat_history: chatHistory.slice(-5),
-                    personality: personality
+                    personality: personality,
+                    language: language
                 })
             });
             const data = await response.json();
@@ -82,10 +106,10 @@ function Assistant({ avatar }) {
         <div className="assistant-container">
             <div className={`assistant-avatar ${isOpen ? 'open' : ''}`} onClick={handleAvatarClick}>
                 <img src={avatar} alt="Assistant Avatar" />
-                {showHelpText && <div className="help-text"><span>Need help?<br></br> Click me</span></div>}
+                {showHelpText && <div className="help-text">{parse(text.assistantHelpMsg)}</div>}
             </div>
             <div className="loading-container">
-                {msgLoading && <p className="loading-text"></p>}
+                {msgLoading && <p className="loading-text">{`${text.assistantLoadingMsg} ${loadingDots}`}</p>}
             </div>
 
             {isOpen && (
@@ -106,7 +130,7 @@ function Assistant({ avatar }) {
                             onFocus={handleTextareaFocus}
                             onBlur={handleTextareaBlur}
                             rows={5}
-                            placeholder="Type your message..."
+                            placeholder={text.assistantTextInputPlaceholder}
                         />
                         <button className="send-button" onClick={sendMessage}>Send</button>
                     </div>

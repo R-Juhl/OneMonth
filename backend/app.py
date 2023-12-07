@@ -30,6 +30,7 @@ class User(db.Model):
     surname = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(260), nullable=False)
+    language = db.Column(db.String(5), default='en')
 
 with app.app_context():
     #db.drop_all() # For dev to delete all tables and create them from scratch
@@ -65,8 +66,7 @@ def login():
         expiration_time = datetime.utcnow() + timedelta(hours=1)  # Expires 1 hour from now
         s = Serializer(app.config['SECRET_KEY'])
         token = s.dumps({'user_id': user.id, 'exp': expiration_time.timestamp()})
-        return jsonify({"token": token, "user": user.name}), 200
-        #return jsonify({"message": "Login successful", "user": user.name}), 200
+        return jsonify({"token": token, "user": user.name, "user_id": user.id}), 200
     else:
         # Incorrect password
         return jsonify({"error": "Invalid username or password"}), 401
@@ -81,9 +81,24 @@ def verify_token():
         if datetime.utcnow().timestamp() > data['exp']:
             return jsonify({"error": "Token expired"}), 401
         user = User.query.get(data['user_id'])
-        return jsonify({"user": user.name}), 200
+        return jsonify({"user": user.name, "user_id": user.id}), 200
     except:
         return jsonify({"error": "Invalid token"}), 401
+
+@app.route('/update_language', methods=['POST'])
+def update_language():
+    data = request.json
+    user_id = data['user_id']
+    language = data['language']
+    print("user_id:", user_id)
+    print("language_id:", language)
+
+    user = User.query.get(user_id)
+    if user:
+        user.language = language
+        db.session.commit()
+        return jsonify({"message": "Language updated successfully"}), 200
+    return jsonify({"error": "User not found"}), 404
 
 # Module functions/routes
 @app.route('/assistant', methods=['POST'])

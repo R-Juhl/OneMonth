@@ -8,18 +8,28 @@ client = openai.OpenAI(
 
 def assistant(data):
     user_message = data['message']
-    chat_history = data['chat_history'] # Not currently used?
-    personality = data['personality'] # Not currently used?
-    context = f"""
-        This is a virtual AI assistant designed to help users with educational and 
-        administrative tasks related to the OneMonth app.
-        
-        The assistant should provide helpful, informative, and engaging responses.
-        The assistant's personality is {personality}.
-        The following is a conversation with a user:
-        """
-    #context should have a danish and english version based on language, setLanguage from App.js
+    chat_history = data['chat_history']
+    personality = data['personality']
+    language = data.get('language', 'en')
 
+    context_eng = """
+        This is a virtual AI assistant designed to help users with educational and 
+        administrative tasks related to the OneMonth app. The assistant should 
+        provide helpful, informative, and engaging responses. The assistant's 
+        personality is {personality}. The following is a conversation with a user:
+        """
+    
+    context_dk = """
+        Dette er en virtuel AI-assistent designet til at hjælpe brugere med uddannelses- og 
+        administrative opgaver relateret til OneMonth-appen. Assistenten bør 
+        give hjælpsomme, informative og engagerende svar. Assistentens 
+        personlighed er {personality}. Følgende er en samtale med en bruger:
+        """
+
+    # Choose context based on language
+    context = context_eng if language == 'en' else context_dk
+    context = context.format(personality=personality)
+    
     # Create a prompt for the completion request
     messages = [{"role": "system", "content": context}]
     messages.extend([{"role": "user", "content": message['content']} for message in chat_history])

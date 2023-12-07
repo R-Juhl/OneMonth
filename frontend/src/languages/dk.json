@@ -1,0 +1,31 @@
+{
+    "headerCurrentuser": "Current user:",
+    "headerLogin": "Log ind",
+    "headerLogout": "Log ud",
+    "headerSignup": "Opret bruger",
+
+    "headerModalRegistertitle": "Opret Bruger",
+    "headerModalLogintitle": "Login",
+    "headerModalName": "Navn",
+    "headerModalSurname": "Efternavn",
+    "headerModalEmail": "Email",
+    "headerModalPassword": "Kode",
+    "headerModalCreateuserButton": "Opret Bruger",
+    "headerModalLoginButton": "navn",
+    "headerModalCloseButton": "Luk",
+
+    "welcomeTitle": "Velkommen til EnMåned",
+    "welcomeDescription1": "Opdag en revolutionerende måde at gennemføre din gymnasielle uddannelse - <strong>hurtigere, smartere og mere engagerende</strong> end nogensinde før. Med EnMåned, kan du fuldføre STX, HHX eller HTX på kun én måned ved fuldtidsstudie.",
+    "welcomeDescription2": "Vores unikke <strong>AI-drevne læringssystem</strong> tilpasser sig <em>dine personlige styrker og udfordringer</em>, hvilket gør det muligt for dig at lære effektivt og i dit eget tempo. Vælg mellem et bredt udvalg af fag.",
+    "welcomeDescription3": "Gennem <strong>gamificering</strong> bliver din uddannelse ikke kun en læringsproces, men også en spændende rejse. Saml point, lås op for nye avatars, tilbehør, og virtuelle trofæer, mens du ser dine fremskridt og præstationer vokse.",
+    "welcomeDescription4": "Vores <strong>mentor- og premiummodeller</strong> tilbyder udvidet adgang til fag og personlig støtte, der sikrer, at du får mest muligt ud af din tid hos os.",
+    "welcomeDescription5": "Med EnMåned, står du ikke alene. Vores <strong>AI-assistent</strong> er altid klar til at hjælpe med tekst, billeder og taleinput, og tilpasser sig løbende til dine præferencer og lærestil.",
+    "welcomeDescription6": "<strong>Tilmeld dig nu</strong> og oplev en uddannelse, der er skræddersyet til den digitale tidsalder, og som passer til din intelligens og læringsstil. Tag det første skridt mod din fremtid med EnMåned!",
+    
+    
+    "assistantHelpMsg": "<span>Brug for hjælp?<br> Klik her</span>",
+    "assistantGreeting": "Hej, hvordan kan jeg hjælpe dig?",
+    "assistantPersonalityDef": "venlig og støttende",
+    "assistantTextInputPlaceholder": "Skriv din besked...",
+    "assistantLoadingMsg": "Tænker"
+}  

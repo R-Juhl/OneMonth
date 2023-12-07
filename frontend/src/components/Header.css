@@ -24,8 +24,8 @@
 
 .button-group {
   display: flex;
-  align-items: center; /* Align items vertically center */
-  justify-content: flex-end; /* Align items to the right */
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .user-display {
@@ -39,6 +39,7 @@
   cursor: pointer;
   padding: 5px;
   margin: 5px;
+  font-family: Montserrat;
 }
   
 .header-logo {

@@ -14,7 +14,6 @@
 }
   
 .assistant-avatar img {
-    border-radius: 50%;
     width: 100%;
     height: 100%;
 }
@@ -28,19 +27,11 @@
     bottom: 10px;
 }
 
-@keyframes loadingAnimation {
-    0%, 100% { content: "Thinking ."; }
-    33% { content: "Thinking .."; }
-    66% { content: "Thinking ..."; }
-}
-
-.loading-text::after {
-    content: "Thinking .";
-    animation: loadingAnimation 1.5s infinite;
-    white-space: nowrap;
+.loading-text {
     color: #031926;
     font-size: 15px;
     font-weight: bold;
+    white-space: nowrap;
 }
 
 .assistant-chat {
@@ -160,6 +151,8 @@
     border-radius: 4px;
     padding: 5px;
     margin-right: 5px;
+    font-family: Montserrat;
+    font-size: 15px;
 }
 
 .send-button {
@@ -172,7 +165,8 @@
     align-self: stretch;
     box-sizing: border-box;
     position: relative;
-    z-index: 1002
+    font-family: Montserrat;
+    z-index: 1002;
 }
 
 .chat-input button.textarea-focused {

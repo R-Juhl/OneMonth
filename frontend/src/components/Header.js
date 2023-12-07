@@ -1,5 +1,5 @@
 // Header.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Modal from 'react-modal';
 import logo from '../images/logo.png';
 import './Header.css';
@@ -7,7 +7,7 @@ import './Header_modals.css';
 
 Modal.setAppElement('#root');
 
-function Header() {
+function Header({ updateLoginStatus }) {
   const [currentUser, setCurrentUser] = useState("Not logged in");
   const [showSignUp, setShowSignUp] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
@@ -33,14 +33,7 @@ function Header() {
     return hasMinLength && hasCapitalLetter;
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      verifyToken(token);
-    }
-  }, []);
-
-  const verifyToken = async (token) => {
+  const verifyToken = useCallback(async (token) => {
     try {
       const response = await fetch('http://localhost:5000/verify_token', {
         method: 'POST',
@@ -50,14 +43,24 @@ function Header() {
       const data = await response.json();
       if (response.ok) {
         setCurrentUser(data.user);
+        updateLoginStatus(true, data.user_id); // Update login status in App.js
       } else {
+        updateLoginStatus(false, null); // Reset login status in App.js
         // Handle token verification failure
       }
     } catch (error) {
       console.error('Error:', error);
+      updateLoginStatus(false, null);
       // Handle server error
     }
-  };
+  }, [updateLoginStatus]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      verifyToken(token);
+    }
+  }, [verifyToken]);
 
   // Handle user sign-up
   const handleSignUpSubmit = async (e) => {
@@ -95,6 +98,7 @@ function Header() {
       if (response.ok) {
         localStorage.setItem('token', data.token);
         setCurrentUser(data.user);
+        updateLoginStatus(true, data.user_id); // Pass user ID to App.js
         setShowLogin(false);
       } else {
         setMessage(data.error);

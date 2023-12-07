@@ -42,9 +42,49 @@
   background-color: #77ACA2;
 }
 
+/* Language Selector Styles */
+.modal select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #468189;
+  border-radius: 4px;
+  background-color: white;
+  color: #031926;
+  cursor: pointer;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23031926" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); /* arrow icon */
+  background-repeat: no-repeat;
+  background-position: right 10px top 50%;
+  font-family: Montserrat;
+  font-size: 15px;
+}
+
+.modal select:hover {
+  border-color: #77ACA2;
+}
+
+.modal option {
+  color: #031926;
+  background-color: white;
+  padding: 8px;
+}
+
 .modal img {
   cursor: pointer;
   height: 50px;
-  border-radius: 15px;
-  padding: 5px;
+  scale: 130%;
+  padding: 15px;
+  margin: 10px;
+  transition: transform 0.3s ease;
+}
+
+.modal img:hover {
+  transform: scale(1.1);
+}
+
+.modal img.clicked {
+  transform: scale(1.5);
+  transition: transform 0.15s ease;
 }

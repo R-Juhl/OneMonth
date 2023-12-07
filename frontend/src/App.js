@@ -1,31 +1,38 @@
+//App.js
 import React, { useState } from 'react';
 import './App.css';
+import avatars from './imports/avatars';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Welcome from './components/Welcome';
 import Assistant from './components/Assistant';
+import { LanguageProvider } from './contexts/LanguageContext';
 
+// Import permanent tabs
 import Settings from './components/Settings';
 import Profile from './components/Profile';
 
+// Import conditional tabs
 import GetStarted from './modules/GetStarted';
 
-// Import avatars
-import avatarDefault from './images/assistants/avatar_default.png';
-import avatar1 from './images/assistants/avatar_1.png';
-
 function App() {
-  const [language, setLanguage] = useState('English');
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
   const [currentTab, setCurrentTab] = useState('');
-  const [avatar, setAvatar] = useState(avatarDefault); // Initial avatar
+  const [avatar, setAvatar] = useState(avatars.avatar_d);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loggedInUserId, setLoggedInUserId] = useState(null);
 
   const permanentTabs = 
     ['Settings', 'Profile'];
   const conditionalTabs = 
     ['GetStarted'];
+
+  const updateLoginStatus = (status, userId) => {
+    setIsLoggedIn(status);
+    setLoggedInUserId(userId);
+  };
 
   const handleTabClick = (tabName) => {
     if (permanentTabs.includes(tabName)) {
@@ -51,42 +58,41 @@ function App() {
     }
   };
 
-  // Define avatars
-  const avatars = {
-    avatar_d: avatarDefault,
-    avatar_1: avatar1
-  };
-
   return (
-    <div>
+    <LanguageProvider>
+      <div>
 
-      <Header />
+        <Header updateLoginStatus={updateLoginStatus} />
 
-      <div className="App">
+        <div className="App">
 
-        <Sidebar isExpanded={isSidebarExpanded} setIsExpanded={setIsSidebarExpanded} onTabClick={handleTabClick} />
-        <div className={`Main-container ${isSidebarExpanded ? 'expanded' : 'collapsed'}`}>
-          {currentTab === 'GetStarted' && <GetStarted />}
-          {!currentTab && <Welcome />}
-          {/* Add other conditional tab components here */}
+          <Sidebar isExpanded={isSidebarExpanded} setIsExpanded={setIsSidebarExpanded} onTabClick={handleTabClick} />
+          <div className={`Main-container ${isSidebarExpanded ? 'expanded' : 'collapsed'}`}>
+            {currentTab === 'GetStarted' && <GetStarted />}
+            {!currentTab && <Welcome />}
+            {/* Add other conditional tab components here */}
+          </div>
+
+          <Assistant
+            apiUrl="http://localhost:5000/assistant"
+            avatar={avatar}
+          />
+
+          <Settings
+            showSettingsModal={showSettingsModal}
+            setShowSettingsModal={setShowSettingsModal}
+            setAvatar={setAvatar}
+            avatars={avatars}
+            isLoggedIn={isLoggedIn}
+            loggedInUserId={loggedInUserId}
+          />
+          <Profile
+            showProfileModal={showProfileModal}
+            setShowProfileModal={setShowProfileModal}
+          />
         </div>
-
-        <Assistant apiUrl="http://localhost:5000/assistant" avatar={avatar} />
-
-        <Settings
-          showSettingsModal={showSettingsModal}
-          setShowSettingsModal={setShowSettingsModal}
-          setAvatar={setAvatar}
-          avatars={avatars}
-          setLanguage={setLanguage}
-          language={language}
-        />
-        <Profile
-          showProfileModal={showProfileModal}
-          setShowProfileModal={setShowProfileModal}
-        />
       </div>
-    </div>
+    </LanguageProvider>
   );
 }
 

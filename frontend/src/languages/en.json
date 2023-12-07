@@ -1,0 +1,32 @@
+{
+    "headerCurrentuser": "Current user:",
+    "headerLogin": "Log in",
+    "headerLogout": "Log out",
+    "headerSignup": "Sign up",
+
+    "headerModalRegistertitle": "Register",
+    "headerModalLogintitle": "Login",
+    "headerModalName": "Name",
+    "headerModalSurname": "Surname",
+    "headerModalEmail": "Email",
+    "headerModalPassword": "Password",
+    "headerModalCreateuserButton": "Create User",
+    "headerModalLoginButton": "Login",
+    "headerModalCloseButton": "Close",
+
+    "welcomeTitle": "Welcome to OneMonth",
+    "welcomeDescription1": "Discover a revolutionary way to complete your high school education - <strong>faster, smarter, and more engaging</strong> than ever before. With OneMonth, you can complete STX, HHX, or HTX in just one month of full-time study.",
+    "welcomeDescription2": "Our unique <strong>AI-powered learning system</strong> adapts to <em>your personal strengths and challenges</em>, enabling you to learn effectively and at your own pace. Choose from a wide range of subjects.",
+    "welcomeDescription3": "Through <strong>gamification</strong>, your education becomes not just a learning process, but also an exciting journey. Collect points, unlock new avatars, accessories, and virtual trophies as you watch your progress and achievements grow.",
+    "welcomeDescription4": "Our <strong>mentor and premium models</strong> offer extended access to subjects and personal support, ensuring that you get the most out of your time with us.",
+    "welcomeDescription5": "With OneMonth, you're not alone. Our <strong>AI assistant</strong> is always ready to help with text, images, and voice input, continuously adapting to your preferences and learning style.",
+    "welcomeDescription6": "<strong>Sign up now</strong> and experience an education tailored to the digital age, suited to your intelligence and learning style. Take the first step towards your future with OneMonth!",
+    
+
+    "assistantHelpMsg": "<span>Need help?<br> Click me</span>",
+    "assistantGreeting": "Hi, how can I help you?",
+    "assistantPersonalityDef": "friendly and supportive",
+    "assistantTextInputPlaceholder": "Type your message...",
+    "assistantLoadingMsg": "Thinking"
+}
+  
