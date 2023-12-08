@@ -4,16 +4,20 @@ import Modal from 'react-modal';
 import logo from '../images/logo.png';
 import './Header.css';
 import './Header_modals.css';
-
-Modal.setAppElement('#root');
+import { useLanguage } from '../contexts/LanguageContext';
+import en from '../languages/en.json';
+import dk from '../languages/dk.json';
 
 function Header({ updateLoginStatus }) {
-  const [currentUser, setCurrentUser] = useState("Not logged in");
+  const { language } = useLanguage();
+  const text = language === 'en' ? en : dk;
+  const [currentUser, setCurrentUser] = useState('Not logged in');
   const [showSignUp, setShowSignUp] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [userData, setUserData] = useState({ name: '', surname: '', email: '', password: '' });
   const [loginData, setLoginData] = useState({ email: '', password: '' });
-  const [message, setMessage] = useState('');
+  const [signUpError, setSignUpError] = useState('');
+  const [loginError, setLoginError] = useState('');
 
   // Handle change for sign-up and login forms
   const handleChange = (e, formType) => {
@@ -25,7 +29,7 @@ function Header({ updateLoginStatus }) {
   };
 
   // Function to check if the user is logged in
-  const isLoggedIn = () => currentUser !== "Not logged in";
+  const isLoggedIn = () => currentUser !== 'Not logged in'; //not sure how to translate as the state should be able to be user. Thus have to leave as text string 'Not logged in' instead of using text.headerCurrentuserstatus
 
   const isPasswordComplex = (password) => {
     const hasMinLength = password.length >= 8;
@@ -66,7 +70,7 @@ function Header({ updateLoginStatus }) {
   const handleSignUpSubmit = async (e) => {
     e.preventDefault();
     if (!isPasswordComplex(userData.password)) {
-      setMessage('Password must be at least 8 characters long and contain at least one capital letter.');
+      setSignUpError(text.headerModalSignuppasswordError);
       return;
     }
     try {
@@ -76,12 +80,12 @@ function Header({ updateLoginStatus }) {
         body: JSON.stringify(userData)
       });
       const data = await response.json();
-      setMessage(data.message);
       setUserData({ name: '', surname: '', email: '', password: '' });
       setShowSignUp(false);
+      setSignUpError('');
     } catch (error) {
       console.error('Error:', error);
-      setMessage('Failed to create user.');
+      setSignUpError(text.headerModalSignupError);
     }
   };
 
@@ -101,59 +105,71 @@ function Header({ updateLoginStatus }) {
         updateLoginStatus(true, data.user_id); // Pass user ID to App.js
         setShowLogin(false);
       } else {
-        setMessage(data.error);
+        //setLoginError('');
+        setLoginError(data.error || text.headerModalLoginError);
       }
       setLoginData({ email: '', password: '' });
     } catch (error) {
       console.error('Error:', error);
-      setMessage('Login failed.');
+      setLoginError(text.headerModalLoginError);
     }
   };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    setCurrentUser("Not logged in");
+    setCurrentUser(text.headerCurrentuserstatus);
     // Any other logout logic
+  };
+
+  // Clear errors when the modals are closed
+  const closeModal = (modalType) => {
+    if (modalType === 'signUp') {
+      setShowSignUp(false);
+      setSignUpError(''); // Clear sign-up error
+    } else if (modalType === 'login') {
+      setShowLogin(false);
+      setLoginError(''); // Clear login error
+    }
   };
   
   return (
     <div className="header">
       <img src={logo} alt="Logo" className="header-logo" />
       <div className="header-right">
-        <div className="user-display"> Current user: {currentUser}</div>
+        <div className="user-display"> {text.headerCurrentuser} {currentUser}</div>
         <div className="button-group">
-        <button className="header-button" onClick={() => setShowSignUp(true)}>Sign up</button>
+        <button className="header-button" onClick={() => setShowSignUp(true)}>{text.headerSignup}</button>
           {isLoggedIn() ? (
-            <button className="header-button" onClick={handleLogout}>Logout</button>
+            <button className="header-button" onClick={handleLogout}>{text.headerLogout}</button>
           ) : (
-            <button className="header-button" onClick={() => setShowLogin(true)}>Log in</button>
+            <button className="header-button" onClick={() => setShowLogin(true)}>{text.headerLogin}</button>
           )}
         </div>
       </div>
       {/* Sign-Up Modal */}
-      <Modal className="modal" isOpen={showSignUp} onRequestClose={() => setShowSignUp(false)}>
-        <h2>Register</h2>
+      <Modal className="modal" isOpen={showSignUp} onRequestClose={() => closeModal('signUp')}>
+        <h2>{text.headerModalSignuptitle}</h2>
         <form onSubmit={handleSignUpSubmit}>
-          <input type="text" name="name" placeholder="Name" onChange={(e) => handleChange(e, 'signup')} value={userData.name} />
-          <input type="text" name="surname" placeholder="Surname" onChange={(e) => handleChange(e, 'signup')} value={userData.surname} />
-          <input type="email" name="email" placeholder="Email" onChange={(e) => handleChange(e, 'signup')} value={userData.email} />
-          <input type="password" name="password" placeholder="Password" onChange={(e) => handleChange(e, 'signup')} value={userData.password} />
-          <button type="submit">Create User</button>
+          <input type="text" name="name" placeholder={text.headerModalName} onChange={(e) => handleChange(e, 'signup')} value={userData.name} />
+          <input type="text" name="surname" placeholder={text.headerModalSurname} onChange={(e) => handleChange(e, 'signup')} value={userData.surname} />
+          <input type="email" name="email" placeholder={text.headerModalEmail} onChange={(e) => handleChange(e, 'signup')} value={userData.email} />
+          <input type="password" name="password" placeholder={text.headerModalPassword} onChange={(e) => handleChange(e, 'signup')} value={userData.password} />
+          <button type="submit">{text.headerModalCreateuserButton}</button>
         </form>
-        <button onClick={() => setShowSignUp(false)}>Close</button>
-        {message && <p>{message}</p>}
+        <button onClick={() => setShowSignUp(false)}>{text.globalCloseButton}</button>
+        {signUpError && <p>{signUpError}</p>}
       </Modal>
 
       {/* Login Modal */}
-      <Modal className="modal" isOpen={showLogin} onRequestClose={() => setShowLogin(false)}>
-        <h2>Login</h2>
+      <Modal className="modal" isOpen={showLogin} onRequestClose={() => closeModal('login')}>
+        <h2>{text.headerModalLogintitle}</h2>
         <form onSubmit={handleLoginSubmit}>
-          <input type="email" name="email" placeholder="Email" onChange={(e) => handleChange(e, 'login')} value={loginData.email} />
-          <input type="password" name="password" placeholder="Password" onChange={(e) => handleChange(e, 'login')} value={loginData.password} />
-          <button type="submit">Login</button>
+          <input type="email" name="email" placeholder={text.headerModalEmail} onChange={(e) => handleChange(e, 'login')} value={loginData.email} />
+          <input type="password" name="password" placeholder={text.headerModalPassword} onChange={(e) => handleChange(e, 'login')} value={loginData.password} />
+          <button type="submit">{text.headerModalLoginButton}</button>
         </form>
-        <button onClick={() => setShowLogin(false)}>Close</button>
-        {message && <p>{message}</p>}
+        <button onClick={() => setShowLogin(false)}>{text.globalCloseButton}</button>
+        {loginError && <p>{loginError}</p>}
       </Modal>
 
     </div>

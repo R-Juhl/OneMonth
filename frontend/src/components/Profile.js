@@ -1,8 +1,13 @@
 import React from 'react';
 import './Profile.css';
 import Modal from 'react-modal';
+import { useLanguage } from '../contexts/LanguageContext';
+import en from '../languages/en.json';
+import dk from '../languages/dk.json';
 
 function Profile({ showProfileModal, setShowProfileModal }) {
+    const { language } = useLanguage();
+    const text = language === 'en' ? en : dk;
 
     return (
         <Modal
@@ -11,8 +16,8 @@ function Profile({ showProfileModal, setShowProfileModal }) {
             onRequestClose={() => setShowProfileModal(false)}
         >
             {/* Modal content */}
-            <h2>Profile</h2>
-            <button onClick={() => setShowProfileModal(false)}>Close</button>
+            <h2>{text.profileModalTitle}</h2>
+            <button onClick={() => setShowProfileModal(false)}>{text.globalCloseButton}</button>
         </Modal>
     );
 }

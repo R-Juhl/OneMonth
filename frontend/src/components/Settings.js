@@ -2,9 +2,12 @@ import React from 'react';
 import './Settings.css';
 import Modal from 'react-modal';
 import { useLanguage } from '../contexts/LanguageContext';
+import en from '../languages/en.json';
+import dk from '../languages/dk.json';
 
 function Settings({ showSettingsModal, setShowSettingsModal, setAvatar, avatars, isLoggedIn, loggedInUserId }) {
     const { language, setLanguage } = useLanguage();
+    const text = language === 'en' ? en : dk;
 
     const handleLanguageChange = async (e) => {
         const newLanguage = e.target.value;
@@ -17,8 +20,6 @@ function Settings({ showSettingsModal, setShowSettingsModal, setAvatar, avatars,
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ user_id: loggedInUserId, language: newLanguage })
             });
-            //const data = await response.json();
-            //setLangauge(data.language);
           } catch (error) {
             console.error('Error updating language preference:', error);
           }
@@ -41,16 +42,16 @@ function Settings({ showSettingsModal, setShowSettingsModal, setAvatar, avatars,
             onRequestClose={() => setShowSettingsModal(false)}
         >
             {/* Modal content */}
-            <h2>Settings</h2>
+            <h2>{text.settingsModalTitle}</h2>
             <div>
-                <h3>Select language</h3>
+                <h3>{text.settingsModalSelectlanguage}</h3>
                 <select onChange={handleLanguageChange} value={language} className="language-selector">
-                    <option value="en">English</option>
-                    <option value="dk">Danish</option>
+                    <option value="en">{text.settingsModalSelectenglish}</option>
+                    <option value="dk">{text.settingsModalSelectdanish}</option>
                 </select>
             </div>
             <div>
-            <h3>Select AI avatar</h3>
+            <h3>{text.settingsModalSelectaiavatar}</h3>
                 <div>
                     <img src={avatars.avatar_d} alt="Default Avatar" onClick={() => handleAvatarClick(avatars.avatar_d)} />
                     <img src={avatars.avatar_1} alt="Avatar 1" onClick={() => handleAvatarClick(avatars.avatar_1)} />
@@ -78,12 +79,12 @@ function Settings({ showSettingsModal, setShowSettingsModal, setAvatar, avatars,
                     <img src={avatars.avatar_23} alt="Avatar 23" onClick={() => handleAvatarClick(avatars.avatar_23)} />
                 </div>
                 <div>
-                    <h3>Premium avatars:</h3>
+                    <h3>{text.settingsModalSelectpremiumavatar}</h3>
                     <img src={avatars.avatar_p1} alt="Avatar P1" onClick={() => handleAvatarClick(avatars.avatar_p1)} />
                     <img src={avatars.avatar_p2} alt="Avatar P2" onClick={() => handleAvatarClick(avatars.avatar_p2)} />
                 </div>
             </div>
-            <button onClick={() => setShowSettingsModal(false)}>Close</button>
+            <button onClick={() => setShowSettingsModal(false)}>{text.globalCloseButton}</button>
         </Modal>
     );
 }

@@ -1,5 +1,6 @@
 //App.js
 import React, { useState } from 'react';
+import Modal from 'react-modal';
 import './App.css';
 import avatars from './imports/avatars';
 import Header from './components/Header';
@@ -7,6 +8,7 @@ import Sidebar from './components/Sidebar';
 import Welcome from './components/Welcome';
 import Assistant from './components/Assistant';
 import { LanguageProvider } from './contexts/LanguageContext';
+import LanguageManager from './contexts/LanguageManager';
 
 // Import permanent tabs
 import Settings from './components/Settings';
@@ -14,6 +16,8 @@ import Profile from './components/Profile';
 
 // Import conditional tabs
 import GetStarted from './modules/GetStarted';
+
+Modal.setAppElement('#root');
 
 function App() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
@@ -60,38 +64,40 @@ function App() {
 
   return (
     <LanguageProvider>
-      <div>
+      <LanguageManager isLoggedIn={isLoggedIn} loggedInUserId={loggedInUserId}>
+        <div>
 
-        <Header updateLoginStatus={updateLoginStatus} />
+          <Header updateLoginStatus={updateLoginStatus} />
 
-        <div className="App">
+          <div className="App">
 
-          <Sidebar isExpanded={isSidebarExpanded} setIsExpanded={setIsSidebarExpanded} onTabClick={handleTabClick} />
-          <div className={`Main-container ${isSidebarExpanded ? 'expanded' : 'collapsed'}`}>
-            {currentTab === 'GetStarted' && <GetStarted />}
-            {!currentTab && <Welcome />}
-            {/* Add other conditional tab components here */}
+            <Sidebar isExpanded={isSidebarExpanded} setIsExpanded={setIsSidebarExpanded} onTabClick={handleTabClick} />
+            <div className={`Main-container ${isSidebarExpanded ? 'expanded' : 'collapsed'}`}>
+              {currentTab === 'GetStarted' && <GetStarted />}
+              {!currentTab && <Welcome />}
+              {/* Add other conditional tab components here */}
+            </div>
+
+            <Assistant
+              apiUrl="http://localhost:5000/assistant"
+              avatar={avatar}
+            />
+
+            <Settings
+              showSettingsModal={showSettingsModal}
+              setShowSettingsModal={setShowSettingsModal}
+              setAvatar={setAvatar}
+              avatars={avatars}
+              isLoggedIn={isLoggedIn}
+              loggedInUserId={loggedInUserId}
+            />
+            <Profile
+              showProfileModal={showProfileModal}
+              setShowProfileModal={setShowProfileModal}
+            />
           </div>
-
-          <Assistant
-            apiUrl="http://localhost:5000/assistant"
-            avatar={avatar}
-          />
-
-          <Settings
-            showSettingsModal={showSettingsModal}
-            setShowSettingsModal={setShowSettingsModal}
-            setAvatar={setAvatar}
-            avatars={avatars}
-            isLoggedIn={isLoggedIn}
-            loggedInUserId={loggedInUserId}
-          />
-          <Profile
-            showProfileModal={showProfileModal}
-            setShowProfileModal={setShowProfileModal}
-          />
         </div>
-      </div>
+      </LanguageManager>
     </LanguageProvider>
   );
 }

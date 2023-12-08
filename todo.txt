@@ -1,6 +1,16 @@
-Language support:
-    Implement centralized language setting on entire site
 
+
+handle shared error messages for login/signup modals
+    make it so error messages are not shared, and also clear when closing modal
+
+
+When logging in, check for language in database and set Language to this
+
+
+Economy:
+    Create basic economy system. Currently no way to earn.
+    Lock Premium avatars. Set price, shown on hover.
+    Create currency column in user database table, create dev user with unlimited
 
 
 For settings:
@@ -8,6 +18,7 @@ For settings:
     implement actual language change functionality
     delete account option?
     changing app color palette
+    change AI model between 3.5 turbo and 4 (v4 available in premium sub plan only)
     (some of these settings are just for dev and will be paid options in the app)
     Lock mechanic and visualization on options (palettes, avatars, etc.)
 
@@ -21,20 +32,11 @@ AI assistant basic functionality
     Vastly reduce available use with rate limit for users that are not logged in (only the basic ai assistant is available in this state)
 
 
-Signup/login modals
-    make it so error messages are not shared, and also clear when closing modal
-
 Profile sidebar tab
     for setting profile configuration. STX/HHX/HTX, learning style, etc.
     *for dev purposes
     *but later used as the intro questionnaire. Then keep it as page so user can always configure
 
-
-Curriculum sidebar tab (main hub for study plan)
-
-
-Email verification.
-    Standard link to verify.
 
 Get Started page tab
     Will be (only) available conditional page tab when user not logged in.
@@ -47,14 +49,21 @@ Get Started page tab
     After selecting a user version, initialize app based on the specified version with relevant page tabs, etc.
 
 
-Do not verify token for opening page tabs and all other random clicks (for instance clicks in Settings.js modal)
+Curriculum sidebar tab (main hub for study plan)
+
+
+Email verification.
+    Standard link to verify.
+
+Do not verify token for opening page tabs and all other random clicks (for instance clicks in Settings.js modal) ?? or is this fine?
 
 
 
 
 
-
-
+Work on page conditions
+    For instance, if userLoggedIn && UserSub=1,2,3 or 4, then do not show Welcome on app init
+    *UserSub being the various subscription models
 
 
 

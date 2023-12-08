@@ -1,10 +1,15 @@
 import React from 'react';
 import './Tabs.css';
+import { useLanguage } from '../contexts/LanguageContext';
+import en from '../languages/en.json';
+import dk from '../languages/dk.json';
 
 function Tabs({ isSidebarExpanded, onTabClick }) {
+  const { language } = useLanguage();
+  const text = language === 'en' ? en : dk;
 
   const conditionalTabs = [
-    { name: 'Get Started', component: 'GetStartedComponent', priority: 1 },
+    { name: text.tabsGetstartedTitle, component: 'GetStartedComponent', priority: 1 },
     // Add more tabs as needed
   ];
 
@@ -25,10 +30,10 @@ function Tabs({ isSidebarExpanded, onTabClick }) {
 
       {/* Permanent Tabs */}
       <button className="tab-button" onClick={() => onTabClick('Profile')}>
-        <span className="tab-button-text">Profile</span>
+        <span className="tab-button-text">{text.tabsProfileTitle}</span>
       </button>
       <button className="tab-button" onClick={() => onTabClick('Settings')}>
-        <span className="tab-button-text">Settings</span>
+        <span className="tab-button-text">{text.tabsSettingsTitle}</span>
       </button>
     </div>
   );

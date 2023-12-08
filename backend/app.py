@@ -100,6 +100,14 @@ def update_language():
         return jsonify({"message": "Language updated successfully"}), 200
     return jsonify({"error": "User not found"}), 404
 
+@app.route('/get_language', methods=['POST'])
+def get_language():
+    user_id = request.json.get('user_id')
+    user = User.query.get(user_id)
+    if user:
+        return jsonify({"language": user.language}), 200
+    return jsonify({"error": "User not found"}), 404
+
 # Module functions/routes
 @app.route('/assistant', methods=['POST'])
 def handle_assistant():

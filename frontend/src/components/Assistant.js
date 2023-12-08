@@ -26,7 +26,7 @@ function Assistant({ avatar }) {
 
     useEffect(() => {
         setChatHistory([{role: 'assistant', content: text.assistantGreeting}]);
-    }, [language]);
+    }, [language, text.assistantGreeting]);
 
     useEffect(() => {
         if (isOpen) {
