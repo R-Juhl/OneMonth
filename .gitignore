@@ -22,4 +22,4 @@ instance/
 venv/
 
 #exclude knowledge bases
-/backend/knowledge/
+backend/knowledge/
