@@ -20,3 +20,6 @@ instance/
 .idea/
 
 venv/
+
+#exclude knowledge bases
+/backend/knowledge/
