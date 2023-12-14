@@ -29,6 +29,19 @@
     "assistantTextInputPlaceholder": "Type your message...",
     "assistantLoadingMsg": "Thinking",
 
+    "startModalTitle": "Get Started",
+    "startModalDescription": "Choose a subscription model to get started on your studies",
+    "startModalFreedesc1": "Trial access to select courses",
+    "startModalFreedesc2": "Ideal for testing our services",
+    "startModalMentordesc1": "Full access to 3 courses' syllabus and services",
+    "startModalMentordesc2": "Best for improving skills in specific courses",
+    "startModalPremiumdesc1": "Complete access to all courses (HHX, STX, HTX)",
+    "startModalPremiumdesc2": "Ideal for comprehensive theory learning",
+    "startModalCustomdesc1": "Study plan tailored to your custom syllabus",
+    "startModalCustomdesc2": "Deep mastery of chosen curriculum",
+    "startModalSelectButton": "Select",
+    "startModalLockedButton": "Locked",
+    
     "profileModalTitle": "Profile",
 
     "settingsModalTitle": "Settings",

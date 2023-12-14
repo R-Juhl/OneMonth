@@ -1,14 +1,29 @@
 # app.py:
 from flask import Flask, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import URLSafeTimedSerializer as Serializer
 from datetime import datetime, timedelta
+import logging
+from modules.models import db, User, UserCourseSession
+
+# Create a custom logger
+logger = logging.getLogger('myapp')
+logger.setLevel(logging.DEBUG)
+# Create handlers
+c_handler = logging.StreamHandler()
+c_handler.setLevel(logging.DEBUG)
+# Create formatters and add it to handlers
+c_format = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
+c_handler.setFormatter(c_format)
+# Add handlers to the logger
+logger.addHandler(c_handler)
 
 # Modules:
 from modules.assistant_module import assistant
+from modules.teacher_module import get_initial_message, continue_course, get_course_thread, get_thread_messages
+
 
 app = Flask(__name__)
 cors_origin = os.environ.get("CORS_ORIGIN", "http://localhost:3000")
@@ -22,15 +37,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{postgres_user}:{postgres
 app.config['SECRET_KEY'] = os.environ.get("SECRET_TOKEN_KEY")
 
 # Initialize SQLAlchemy with the app
-db = SQLAlchemy(app)
-
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), nullable=False)
-    surname = db.Column(db.String(80), nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(260), nullable=False)
-    language = db.Column(db.String(5), default='en')
+db.init_app(app)
 
 with app.app_context():
     #db.drop_all() # For dev to delete all tables and create them from scratch
@@ -108,12 +115,52 @@ def get_language():
         return jsonify({"language": user.language}), 200
     return jsonify({"error": "User not found"}), 404
 
-# Module functions/routes
+
+
+### Module functions/routes ###
 @app.route('/assistant', methods=['POST'])
 def handle_assistant():
     data = request.get_json()
     response_text = assistant(data)
     return jsonify({"response": response_text})
+
+@app.route('/get_or_create_course_thread', methods=['POST'])
+def get_or_create_course_thread():
+    data = request.json
+    logger.debug(f"get_or_create_course_thread called with data: {data}")
+    user_id = data.get('user_id')
+    course_name = data.get('course_name')
+
+    thread_id, is_new_thread = get_course_thread(user_id, course_name)  # Update function to return a flag
+    return jsonify({"thread_id": thread_id, "isNewThread": is_new_thread})
+
+@app.route('/get_thread_messages', methods=['POST'])
+def handle_get_thread_messages():
+    data = request.json
+    thread_id = data['thread_id']
+    messages_list = get_thread_messages(thread_id)
+    return jsonify({"messages": messages_list})
+
+@app.route('/course_initial', methods=['GET'])
+def handle_initial():
+    thread_id = request.args.get('thread_id')
+    return get_initial_message(thread_id)
+
+@app.route('/course_continue', methods=['POST'])
+def handle_continue():
+    data = request.json
+    logger.debug(f"handle_continue called with data: {data}")
+    thread_id = data.get('thread_id')
+    user_input = data.get('user_input')
+
+    # Logging the received data
+    logger.debug(f"Received data for course_continue: {data}")
+    response = continue_course(thread_id, user_input)
+    # Logging the response
+    logger.debug(f"Sending response: {response.get_json()}")
+
+    return response
+
 
 if __name__ == '__main__':
     app.run(debug=True)

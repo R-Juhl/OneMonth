@@ -7,6 +7,7 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Welcome from './components/Welcome';
 import Assistant from './components/Assistant';
+import VariableContent from './components/VariableContent';
 import { LanguageProvider } from './contexts/LanguageContext';
 import LanguageManager from './contexts/LanguageManager';
 
@@ -23,10 +24,13 @@ function App() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
   const [currentTab, setCurrentTab] = useState('');
   const [avatar, setAvatar] = useState(avatars.avatar_d);
+  const [showStartModal, setShowStartModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedInUserId, setLoggedInUserId] = useState(null);
+
+  const [isAfsaetningReady, setIsAfsaetningReady] = useState(false);
 
   const permanentTabs = 
     ['Settings', 'Profile'];
@@ -39,6 +43,7 @@ function App() {
   };
 
   const handleTabClick = (tabName) => {
+    console.log('handleTabClick called with:', tabName);
     if (permanentTabs.includes(tabName)) {
       switch (tabName) {
         case 'Settings':
@@ -59,8 +64,20 @@ function App() {
       // Close all modals related to permanent tabs
       setShowSettingsModal(false);
       setShowProfileModal(false);
+      if (tabName === 'GetStarted') {
+        setShowStartModal(true); // Open the GetStarted modal
+      }
     }
-  };
+    if (tabName === 'Afsætning') {
+      setShowSettingsModal(false);
+      setShowProfileModal(false);
+      setCurrentTab(tabName);
+      setIsAfsaetningReady(true);  // Set this to trigger fetching the initial message
+    } else {
+      setIsAfsaetningReady(false); // Reset this if another tab is clicked
+    }
+  }
+ 
 
   return (
     <LanguageProvider>
@@ -72,9 +89,18 @@ function App() {
           <div className="App">
 
             <Sidebar isExpanded={isSidebarExpanded} setIsExpanded={setIsSidebarExpanded} onTabClick={handleTabClick} />
+
             <div className={`Main-container ${isSidebarExpanded ? 'expanded' : 'collapsed'}`}>
-              {currentTab === 'GetStarted' && <GetStarted />}
-              {!currentTab && <Welcome />}
+              {/* Always show Welcome component, but conditionally show GetStarted */}
+              {currentTab !== 'Afsætning' && <Welcome />}
+              {currentTab === 'GetStarted' && <GetStarted
+                showStartModal={showStartModal}
+                setShowStartModal={setShowStartModal}
+              />}
+              {currentTab === 'Afsætning' && <VariableContent 
+                isAfsaetningReady={isAfsaetningReady}
+                loggedInUserId={loggedInUserId}
+              />}
               {/* Add other conditional tab components here */}
             </div>
 
@@ -95,6 +121,7 @@ function App() {
               showProfileModal={showProfileModal}
               setShowProfileModal={setShowProfileModal}
             />
+
           </div>
         </div>
       </LanguageManager>

@@ -16,6 +16,11 @@
 .assistant-avatar img {
     width: 100%;
     height: 100%;
+    transition: transform 0.3s ease;
+}
+
+.assistant-avatar:hover img {
+    transform: scale(1.1); /* Increase size by 10% on hover */
 }
 
 .loading-container {

@@ -1,5 +1,148 @@
-.get-started-container {
+/* Overlay for Modal */
+.ReactModal__Overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* PROFILE STYLES */
+
+.modal-getstarted {
+  background-color: #9DBEBB;
+    color: #031926;
+    border-radius: 8px;
     padding: 20px;
-    /* Add more styling as needed */
-  }
-  
+    width: 60vw;
+    max-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.modal-getstarted h2 {
+  color: #031926;
+  text-align: center;
+}
+
+.modal-getstarted button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #468189;
+  color: #F4E9CD;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  font-size: 15px;
+  font-family: Montserrat;
+}
+
+.momodal-getstartedal button:hover {
+  background-color: #77ACA2;
+}
+
+.modal-getstarted img {
+  cursor: pointer;
+  height: 50px;
+  border-radius: 15px;
+  padding: 5px;
+}
+
+.get-started-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.boxes-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  margin: 20px 20;
+  overflow: hidden;
+}
+
+.box {
+  background-color: #F4E9CD;
+  color: #031926;
+  padding: 10px;
+  padding-bottom: 40px;
+  margin: 20px;
+  border-radius: 4px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.box:hover {
+  transform: scale(1.1);
+  z-index: 1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.box.locked:hover {
+  filter: grayscale(100%);
+}
+
+.box.locked img {
+  opacity: 0.6;
+}
+
+.box.locked .select-button {
+  background-color: #757575;
+  cursor: not-allowed;
+}
+
+.box img {
+  cursor: pointer;
+  height: 50px;
+  border-radius: 15px;
+  padding: 5px;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.box:hover img {
+  opacity: 1;
+}
+
+.box p {
+  margin-bottom: 10px;
+}
+
+.select-button {
+  padding: 10px;
+  margin-top: 10px;
+  visibility: hidden;
+  background-color: #468189;
+  color: #F4E9CD;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, visibility 0s 0.3s;
+  font-weight: bold;
+  font-size: 15px;
+  font-family: Montserrat;
+  opacity: 0;
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+.select-button:hover {
+  background-color: #77ACA2;
+}
+
+.box:hover .select-button {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
+}
+
+.close-button:hover {
+  background-color: #77ACA2;
+}

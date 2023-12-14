@@ -29,6 +29,19 @@
     "assistantTextInputPlaceholder": "Skriv din besked...",
     "assistantLoadingMsg": "Tænker",
 
+    "startModalTitle": "Start",
+    "startModalDescription": "Vælg en abonnementsmodel for at komme i gang med dit studie",
+    "startModalFreedesc1": "Prøveadgang til udvalgte fag",
+    "startModalFreedesc2": "Ideel til at teste vores tjenester",
+    "startModalMentordesc1": "Fuld adgang til 3 kursers pensum og tjenester",
+    "startModalMentordesc2": "Ideel til at forbedre færdigheder i specifikke kurser",
+    "startModalPremiumdesc1": "Fuld adgang til alle kurser (HHX, STX, HTX)",
+    "startModalPremiumdesc2": "Ideel til omfattende teoriundervisning",
+    "startModalCustomdesc1": "Studieplan skræddersyet til dit brugerdefinerede pensum",
+    "startModalCustomdesc2": "Dyb beherskelse af det valgte pensum",
+    "startModalSelectButton": "Vælg",
+    "startModalLockedButton": "Låst",
+
     "profileModalTitle": "Profil",
 
     "settingsModalTitle": "Indstillinger",
