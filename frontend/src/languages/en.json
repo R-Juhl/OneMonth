@@ -20,6 +20,7 @@
     "headerModalLoginError": "Login failed",
 
     "tabsGetstartedTitle": "Get Started",
+    "tabsHowitworksTitle": "How it works",
     "tabsProfileTitle": "Profile",
     "tabsSettingsTitle": "Settings",
 
@@ -41,6 +42,8 @@
     "startModalCustomdesc2": "Deep mastery of chosen curriculum",
     "startModalSelectButton": "Select",
     "startModalLockedButton": "Locked",
+
+    "howitworksModalTitle": "How It Works",
     
     "profileModalTitle": "Profile",
 
@@ -57,8 +60,13 @@
     "welcomeDescription3": "Through <strong>gamification</strong>, your education becomes not just a learning process, but also an exciting journey. Collect points, unlock new avatars, accessories, and virtual trophies as you watch your progress and achievements grow.",
     "welcomeDescription4": "Our <strong>mentor and premium models</strong> offer extended access to subjects and personal support, ensuring that you get the most out of your time with us.",
     "welcomeDescription5": "With OneMonth, you're not alone. Our <strong>AI assistant</strong> is always ready to help with text, images, and voice input, continuously adapting to your preferences and learning style.",
-    "welcomeDescription6": "<strong>Sign up now</strong> and experience an education tailored to the digital age, suited to your intelligence and learning style. Take the first step towards your future with OneMonth!"
+    "welcomeDescription6": "<strong>Sign up now</strong> and experience an education tailored to the digital age, suited to your intelligence and learning style. Take the first step towards your future with OneMonth!",
     
-
+    "curriculumTitle": "Curriculum",
+    "totalCourses": "Total courses",
+    "coursesStarted": "Courses started",
+    "overallProgress": "Overall progress",
+    "overallMastery": "Overall mastery"
+    
 }
   

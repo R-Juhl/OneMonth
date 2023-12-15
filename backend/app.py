@@ -88,7 +88,14 @@ def verify_token():
         if datetime.utcnow().timestamp() > data['exp']:
             return jsonify({"error": "Token expired"}), 401
         user = User.query.get(data['user_id'])
-        return jsonify({"user": user.name, "user_id": user.id}), 200
+        if user:
+            return jsonify({
+                "user": user.name, 
+                "user_id": user.id, 
+                "user_version": user.user_version
+            }), 200
+        else:
+            return jsonify({"user": user.name, "user_id": user.id}), 200
     except:
         return jsonify({"error": "Invalid token"}), 401
 
@@ -115,6 +122,21 @@ def get_language():
         return jsonify({"language": user.language}), 200
     return jsonify({"error": "User not found"}), 404
 
+@app.route('/update_user_version', methods=['POST'])
+def update_user_version():
+    if not request.is_json:
+        return jsonify({"error": "Invalid request"}), 400
+
+    data = request.json
+    user_id = data.get('user_id')
+    user_version = data.get('user_version')
+
+    user = User.query.get(user_id)
+    if user:
+        user.user_version = user_version
+        db.session.commit()
+        return jsonify({"message": "User version updated successfully"}), 200
+    return jsonify({"error": "User not found"}), 404
 
 
 ### Module functions/routes ###

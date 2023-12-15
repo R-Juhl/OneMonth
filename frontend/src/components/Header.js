@@ -1,5 +1,5 @@
 // Header.js
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
 import logo from '../images/logo.png';
 import './Header.css';
@@ -8,10 +8,9 @@ import { useLanguage } from '../contexts/LanguageContext';
 import en from '../languages/en.json';
 import dk from '../languages/dk.json';
 
-function Header({ updateLoginStatus }) {
+function Header({ updateLoginStatus, currentUser, setCurrentUser, handleLogout, isLoggedIn, handleLogin }) {
   const { language } = useLanguage();
   const text = language === 'en' ? en : dk;
-  const [currentUser, setCurrentUser] = useState('Not logged in');
   const [showSignUp, setShowSignUp] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [userData, setUserData] = useState({ name: '', surname: '', email: '', password: '' });
@@ -28,43 +27,11 @@ function Header({ updateLoginStatus }) {
     }
   };
 
-  // Function to check if the user is logged in
-  const isLoggedIn = () => currentUser !== 'Not logged in'; //not sure how to translate as the state should be able to be user. Thus have to leave as text string 'Not logged in' instead of using text.headerCurrentuserstatus
-
   const isPasswordComplex = (password) => {
     const hasMinLength = password.length >= 8;
     const hasCapitalLetter = /[A-Z]/.test(password);
     return hasMinLength && hasCapitalLetter;
   };
-
-  const verifyToken = useCallback(async (token) => {
-    try {
-      const response = await fetch('http://localhost:5000/verify_token', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token })
-      });
-      const data = await response.json();
-      if (response.ok) {
-        setCurrentUser(data.user);
-        updateLoginStatus(true, data.user_id); // Update login status in App.js
-      } else {
-        updateLoginStatus(false, null); // Reset login status in App.js
-        // Handle token verification failure
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      updateLoginStatus(false, null);
-      // Handle server error
-    }
-  }, [updateLoginStatus]);
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      verifyToken(token);
-    }
-  }, [verifyToken]);
 
   // Handle user sign-up
   const handleSignUpSubmit = async (e) => {
@@ -79,7 +46,7 @@ function Header({ updateLoginStatus }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData)
       });
-      const data = await response.json();
+      await response.json();
       setUserData({ name: '', surname: '', email: '', password: '' });
       setShowSignUp(false);
       setSignUpError('');
@@ -92,33 +59,8 @@ function Header({ updateLoginStatus }) {
   // Handle user login
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch('http://localhost:5000/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(loginData)
-      });
-      const data = await response.json();
-      if (response.ok) {
-        localStorage.setItem('token', data.token);
-        setCurrentUser(data.user);
-        updateLoginStatus(true, data.user_id); // Pass user ID to App.js
-        setShowLogin(false);
-      } else {
-        //setLoginError('');
-        setLoginError(data.error || text.headerModalLoginError);
-      }
-      setLoginData({ email: '', password: '' });
-    } catch (error) {
-      console.error('Error:', error);
-      setLoginError(text.headerModalLoginError);
-    }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    setCurrentUser(text.headerCurrentuserstatus);
-    // Any other logout logic
+    await handleLogin(loginData); // Call handleLogin from App.js
+    setShowLogin(false); // Close the login modal after login attempt
   };
 
   // Clear errors when the modals are closed
@@ -129,6 +71,11 @@ function Header({ updateLoginStatus }) {
     } else if (modalType === 'login') {
       setShowLogin(false);
       setLoginError(''); // Clear login error
+    } else if (modalType === '') {
+      setShowSignUp(false);
+      setSignUpError('');
+      setShowLogin(false);
+      setLoginError('');
     }
   };
   
@@ -139,7 +86,7 @@ function Header({ updateLoginStatus }) {
         <div className="user-display"> {text.headerCurrentuser} {currentUser}</div>
         <div className="button-group">
         <button className="header-button" onClick={() => setShowSignUp(true)}>{text.headerSignup}</button>
-          {isLoggedIn() ? (
+          {isLoggedIn ? (
             <button className="header-button" onClick={handleLogout}>{text.headerLogout}</button>
           ) : (
             <button className="header-button" onClick={() => setShowLogin(true)}>{text.headerLogin}</button>
@@ -156,7 +103,7 @@ function Header({ updateLoginStatus }) {
           <input type="password" name="password" placeholder={text.headerModalPassword} onChange={(e) => handleChange(e, 'signup')} value={userData.password} />
           <button type="submit">{text.headerModalCreateuserButton}</button>
         </form>
-        <button onClick={() => setShowSignUp(false)}>{text.globalCloseButton}</button>
+        <button onClick={() => closeModal('')}>{text.globalCloseButton}</button>
         {signUpError && <p>{signUpError}</p>}
       </Modal>
 
@@ -168,7 +115,7 @@ function Header({ updateLoginStatus }) {
           <input type="password" name="password" placeholder={text.headerModalPassword} onChange={(e) => handleChange(e, 'login')} value={loginData.password} />
           <button type="submit">{text.headerModalLoginButton}</button>
         </form>
-        <button onClick={() => setShowLogin(false)}>{text.globalCloseButton}</button>
+        <button onClick={() => closeModal('')}>{text.globalCloseButton}</button>
         {loginError && <p>{loginError}</p>}
       </Modal>
 

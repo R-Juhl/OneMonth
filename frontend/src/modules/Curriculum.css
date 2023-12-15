@@ -1,0 +1,25 @@
+/* CURRICULUM COMPONENT STYLES */
+
+.curriculum-container {
+  background-color: #F4E9CD;
+  color: #031926;
+  padding: 20px;
+}
+
+.overview-box {
+  background-color: #9DBEBB;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.stats {
+  background-color: #77ACA2;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.course-list {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,38 @@
+/* COURSEBOX COMPONENT STYLES */
+
+.course-box {
+    display: flex;
+    align-items: center;
+    background-color: #468189;
+    color: #031926;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.course-image {
+    width: 100px; /* Adjust as needed */
+    height: 100px; /* Adjust as needed */
+    margin-right: 10px;
+}
+
+.course-info {
+    flex-grow: 1;
+}
+
+.course-title {
+    font-weight: bold;
+}
+
+.continue-button, .start-button {
+    background-color: #031926;
+    color: #F4E9CD;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.continue-button:hover, .start-button:hover {
+    background-color: #77ACA2;
+}

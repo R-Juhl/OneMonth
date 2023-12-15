@@ -1,6 +1,6 @@
 
 
-Afsaetning MVP implmentation
+
 
 Implement flexible assistant id
     files, instructions, etc. should depend on current course
@@ -13,10 +13,6 @@ Implement flexible assistant id
     Or do just use different assistant id's so no need to create/modify ???
 
     move assistant id/ids to env variable
-
-
-Move course into app from frontpage
-    Require users to signup, then select subscription model
 
 
 Redesign Welcome.js component
@@ -35,12 +31,21 @@ Settings
         show currency in header for users that are logged in
         Set price for items in settings, shown on hover.
 
+Add study selection modal
+    after selecting user version a new modal or some window should ask the User to choose study line (HHX, STX, HTX).
+    Selectable so multiple are possible in the future?
 
-
+Other visuals/design
+    redo sidetab
+        design
+        animations on tabs, and currently selected color for tabs
 
 Fix:
     LegacyAPIWarning: The Query.get() method is considered legacy as of the 1.x series of SQLAlchemy and becomes a legacy construct in 2.0. The method is now available as Session.get() (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
 
+    Error while trying to use the following icon from the Manifest: http://localhost:3000/logo.png (Download error or resource isn't a valid image)
+
+    log ind modals (an others) should appear on top layer. For instance, when GetStarted is open and clicking on log in, the login modal appears behind the GetStarted component
 
 Features page tab (permanent)
     full list of features and descriptions
@@ -116,3 +121,9 @@ Do not verify token for opening page tabs and all other random clicks (for insta
 
 Buttons on returning user logic
     setIsReady in VariableContent.js should only be true if messages in thread > 1 (ready has been clicked previosuly for the unique user id)
+
+
+Padding/margin below error msg in GetStarted
+
+
+migrate handleSignupSubmit from Header.js to App.js at some point for better management

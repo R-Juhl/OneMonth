@@ -9,14 +9,14 @@
 
 .modal-getstarted {
   background-color: #9DBEBB;
-    color: #031926;
-    border-radius: 8px;
-    padding: 20px;
-    width: 60vw;
-    max-height: 60vh;
-    display: flex;
-    flex-direction: column;
-    margin: auto;
+  color: #031926;
+  border-radius: 8px;
+  padding: 20px;
+  width: 60vw;
+  max-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
 }
 
 .modal-getstarted h2 {
