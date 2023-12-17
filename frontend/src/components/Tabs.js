@@ -21,11 +21,6 @@ function Tabs({ isSidebarExpanded, onTabClick, conditionalTabs }) {
         ))
       }
 
-      {/* Afsætning Tab */}
-      <button className="tab-button" onClick={() => onTabClick('Afsætning')}>
-        <span className="tab-button-text">Afsætning</span>
-      </button>
-
       {/* Spacer */}
       <div className="spacer"></div>
 

@@ -11,11 +11,11 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(260), nullable=False)
     language = db.Column(db.String(5), default='en')
-    user_version = db.Column(db.String(10), default=None)  # 'free', 'mentor', 'premium', 'custom', and 'dev'
+    user_version = db.Column(db.String(10), default=None)  # Options are: 'free', 'mentor', 'premium', 'custom', and 'dev'
     currency = db.Column(db.Integer, default=0)
 
 class UserCourseSession(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    course_name = db.Column(db.String(100))
+    course_id = db.Column(db.Integer)
     thread_id = db.Column(db.String(100))

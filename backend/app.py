@@ -149,11 +149,9 @@ def handle_assistant():
 @app.route('/get_or_create_course_thread', methods=['POST'])
 def get_or_create_course_thread():
     data = request.json
-    logger.debug(f"get_or_create_course_thread called with data: {data}")
-    user_id = data.get('user_id')
-    course_name = data.get('course_name')
-
-    thread_id, is_new_thread = get_course_thread(user_id, course_name)  # Update function to return a flag
+    user_id = data['user_id']
+    course_id = data['course_id']
+    thread_id, is_new_thread = get_course_thread(user_id, course_id)
     return jsonify({"thread_id": thread_id, "isNewThread": is_new_thread})
 
 @app.route('/get_thread_messages', methods=['POST'])
@@ -166,7 +164,9 @@ def handle_get_thread_messages():
 @app.route('/course_initial', methods=['GET'])
 def handle_initial():
     thread_id = request.args.get('thread_id')
-    return get_initial_message(thread_id)
+    course_title = request.args.get('course_title')
+    print(f"Recerived course_title:", course_title)
+    return get_initial_message(thread_id, course_title)
 
 @app.route('/course_continue', methods=['POST'])
 def handle_continue():

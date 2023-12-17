@@ -3,17 +3,27 @@
 
 
 Implement flexible assistant id
-    files, instructions, etc. should depend on current course
-    modify these in code
-    files should be loaded accordringly, etc
-    then use this new modified assistant for the session
-    this way only 1 assistant teacher id is needed
-    adjust language based on settings
+    Language for all buttons, titles, instructions, initialmessage, etc. should depend on app language from settings
+    "Leave Class" button in course session (both when ready and when not ready)
+        stop rendering VariableContent and render Curriculum
+        Also want user to be able to click on Curriculum page tab
+    Start/coninue course buttons in CourseBox should change based on existing thread id in database
 
-    Or do just use different assistant id's so no need to create/modify ???
+Various bugs based on states after having moved states to a context that results in incorrect rendering of UI
 
-    move assistant id/ids to env variable
+Course/study Selection component (tab or modal?)
+    Select gymnasium
+    select courses to take (Afsaetning A, Afsaetning B, Damsl A, etc.)
+    How to implement as a start requirement, but also able to change course later?`?
+        New tab below Curriculum to Change Courses
 
+Courses
+    Progress should be a variable that depends on number of thread messages to start with (later a algo where the GPT evaluates teached content in relation to total syllabus)
+    Add Exercise component to courses
+        later implement mastery as variable
+
+Curriculum design
+    more visuals for progress, mastery, etc.
 
 Redesign Welcome.js component
     design overhaul
@@ -31,9 +41,6 @@ Settings
         show currency in header for users that are logged in
         Set price for items in settings, shown on hover.
 
-Add study selection modal
-    after selecting user version a new modal or some window should ask the User to choose study line (HHX, STX, HTX).
-    Selectable so multiple are possible in the future?
 
 Other visuals/design
     redo sidetab
@@ -52,11 +59,6 @@ Features page tab (permanent)
     detailed comparison between user models
     pricing
 
-
-Curriculum sidebar tab (main hub for study plan) and main page for created users?
-    Think about how to structure this considering many many modules and submodules and their various state interdependencies
-
-
 GPT assistant exercises
     Implement exercises. Should be generated and displayed at a certain interval and/or by user request?
     Can it somehow make use of custom functions for the GPT assistant api?
@@ -69,6 +71,9 @@ Add database progression implementations for course threads
 Since GPT assistant generation is slow, consider adding:
     automatic start of next message (which user can pause, and/or adjust the speed of)
     this however, will then not allow the user to specify the direction of the conversation using buttons/inputs?? Think about way to solve for this
+    Best approach is likely to start new GPT msg generation immedieatly on both fetchinitialmsg and after each "continue" submission.
+        This msg should then be put in queue and be displayed when the button is actually pressed if ready, or wait ontil completion and then displayed
+        If other submission than continue from user, then delete qeued msg or stop current msg generation, and start generating new msg based on user input
 
 
 For settings:
@@ -114,6 +119,10 @@ Work on page conditions
 
 Email verification.
     Standard link to verify.
+
+
+Studieretningsproject
+    Unlock SOP course (for HHX) with a certain overall progress/mastery (or specific course progress)
 
 
 Do not verify token for opening page tabs and all other random clicks (for instance clicks in Settings.js modal) ?? or is this fine?

@@ -4,20 +4,35 @@ import openai
 from flask import jsonify
 import time
 from .models import db, UserCourseSession
+from .assistant_config import assistant_ids, assistant_configs
 
 client = openai.OpenAI(
   api_key = os.environ.get("OPENAI_API_KEY_ONEMONTH")
 )
 
-Afsaetning_teacher_assistantid = 'asst_nEqHa4No0Yslxcf8Uw7pUCFm'
-ASSISTANT_ID = Afsaetning_teacher_assistantid
+class Teacher:
+    def __init__(self, assistant_id):
+        self.assistant_id = assistant_id
 
-def get_course_thread(user_id, course_name):
-    session = UserCourseSession.query.filter_by(user_id=user_id, course_name=course_name).first()
+def get_course_thread(user_id, course_id):
+    session = UserCourseSession.query.filter_by(user_id=user_id, course_id=course_id).first()
+
+    # Update assistant based on course_id
+    assistant_config = assistant_configs.get(course_id)
+    if assistant_config:
+        # Update the assistant with the new configuration
+        client.beta.assistants.update(
+            assistant_id=assistant_ids[course_id],
+            instructions=assistant_config["instructions"],
+            name=assistant_config["name"],
+        )
+
     if not session:
         # Create new session and thread
+        assistant_id = assistant_ids.get(course_id)
+        teacher = Teacher(assistant_id)
         new_thread = client.beta.threads.create()
-        new_session = UserCourseSession(user_id=user_id, course_name=course_name, thread_id=new_thread.id)
+        new_session = UserCourseSession(user_id=user_id, course_id=course_id, thread_id=new_thread.id)
         db.session.add(new_session)
         db.session.commit()
         return new_thread.id, True
@@ -39,14 +54,15 @@ def get_thread_messages(thread_id):
     
     return messages_list
 
-def get_initial_message(thread_id):
+def get_initial_message(thread_id, course_title):
     if not thread_id:
         raise ValueError("No thread ID provided for initial message")
 
+    initial_content = f"Hi, I am your AI teacher in {course_title}. Let me know when you are ready for your class"
     message_response = client.beta.threads.messages.create(
         thread_id=thread_id,
         role="user",
-        content="Hi, I am your AI teacher in Afsætning. Let me know when you are ready for your class"
+        content=initial_content
     )
     print(f"Initial message sent to thread: {thread_id}")
     initial_message = message_response.content[0].text.value if message_response.content else ""
@@ -55,8 +71,18 @@ def get_initial_message(thread_id):
 def continue_course(thread_id, user_input):
 
     print(f"Received the following user_input to add to thread: {user_input}")
-
     cancel_active_runs(thread_id)
+
+    # Fetch the course ID from the UserCourseSession using the thread ID
+    session = UserCourseSession.query.filter_by(thread_id=thread_id).first()
+    if not session:
+        return jsonify({"error": "Session not found"}), 404
+
+    course_id = session.course_id
+    assistant_id = assistant_ids.get(course_id)
+
+    if not assistant_id:
+        return jsonify({"error": "Assistant ID not found for the course"}), 404
 
     # Send user input to the thread
     client.beta.threads.messages.create(
@@ -69,7 +95,7 @@ def continue_course(thread_id, user_input):
     # Create and wait for the run to complete
     run = client.beta.threads.runs.create(
         thread_id=thread_id,
-        assistant_id=ASSISTANT_ID,
+        assistant_id=assistant_id,
     )
     print(f"Run created: {run.id}")
 

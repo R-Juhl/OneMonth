@@ -1,8 +1,10 @@
 // LanguageManager.js
 import React, { useEffect, useContext } from 'react';
 import { LanguageContext } from './LanguageContext';
+import UserIdContext from '../contexts/UserIdContext';
 
-const LanguageManager = ({ children, isLoggedIn, loggedInUserId }) => {
+const LanguageManager = ({ children }) => {
+  const { isLoggedIn, loggedInUserId } = useContext(UserIdContext);
   const { setLanguage } = useContext(LanguageContext);
 
   useEffect(() => {

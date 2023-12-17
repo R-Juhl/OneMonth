@@ -1,22 +1,24 @@
 // VariableContent.js
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import './VariableContent.css';
+import UserIdContext from '../contexts/UserIdContext';
 
-const VariableContent = ({ isAfsaetningReady, loggedInUserId }) => {
+const VariableContent = ({ courseId, courseTitle }) => {
+  const { loggedInUserId } = useContext(UserIdContext);
   const [messages, setMessages] = useState([]);
   const [threadId, setThreadId] = useState(null);
-  const [isThreadCreationStarted, setIsThreadCreationStarted] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [customMessage, setCustomMessage] = useState("");
   const [loadingDots, setLoadingDots] = useState('');
+  const [isThreadCreationStarted, setIsThreadCreationStarted] = useState(false);
 
-  const fetchInitialMessage = useCallback(async (threadId) => {
+  const fetchInitialMessage = useCallback(async (threadId, courseTitle) => {
     if (!threadId) {
       console.error('No thread ID available for initial message');
       return;
     }
-    const response = await fetch(`http://localhost:5000/course_initial?thread_id=${threadId}`);
+    const response = await fetch(`http://localhost:5000/course_initial?thread_id=${threadId}&course_title=${encodeURIComponent(courseTitle)}`);
     const data = await response.json();
     console.log("log from fetchInitialMessage with data:", data);
     const formattedInitialMessage = formatText(data.message, 'assistant');
@@ -36,32 +38,39 @@ const VariableContent = ({ isAfsaetningReady, loggedInUserId }) => {
     }
   }, []);
 
-  const getOrCreateThread = useCallback(async () => {
-    if (isThreadCreationStarted) {
-      return;
-    }
-    setIsThreadCreationStarted(true);
-    const response = await fetch('http://localhost:5000/get_or_create_course_thread', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ user_id: loggedInUserId, course_name: 'Afsætning' })
-    });
-    const data = await response.json();
-    console.log("log from getOrCreateThread with data:", data);
-    setThreadId(data.thread_id);
-    if (data.isNewThread) {
-      await fetchInitialMessage(data.thread_id); // Pass thread_id to fetchInitialMessage for new users
-    } else {
-      await fetchAllMessages(data.thread_id); // Fetch messages for returning users
-      setIsReady(true);
-    }
-  }, [isThreadCreationStarted, loggedInUserId, fetchAllMessages, fetchInitialMessage]);
-
   useEffect(() => {
-    if (isAfsaetningReady && !isThreadCreationStarted) {
-      getOrCreateThread();
-    }
-  }, [isAfsaetningReady, getOrCreateThread, isThreadCreationStarted]);
+    const initiateCourseSession = async () => {
+      if (!isThreadCreationStarted && courseId && loggedInUserId && courseTitle) {
+        setIsThreadCreationStarted(true);
+        setIsLoading(true);
+  
+        try {
+          // Get or create thread
+          const threadResponse = await fetch('http://localhost:5000/get_or_create_course_thread', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ user_id: loggedInUserId, course_id: courseId })
+          });
+          const threadData = await threadResponse.json();
+          setThreadId(threadData.thread_id);
+  
+          // Fetch initial or all messages
+          if (threadData.isNewThread) {
+            await fetchInitialMessage(threadData.thread_id, courseTitle);
+          } else {
+            await fetchAllMessages(threadData.thread_id);
+          }
+        } catch (error) {
+          console.error('Error handling course session:', error);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
+  
+    initiateCourseSession();
+  }, [courseId, loggedInUserId, courseTitle, isThreadCreationStarted, fetchInitialMessage, fetchAllMessages]);
+  
 
   const handleNext = async (userInput) => {
     console.log("handleNext called with userInput:", userInput);
@@ -124,7 +133,7 @@ const VariableContent = ({ isAfsaetningReady, loggedInUserId }) => {
 
   return (
     <div className='content-container'>
-      <h1 className='content-title'>Afsætning Course:</h1>
+      <h1 className='content-title'>{courseTitle} Course</h1>
       <div>
         {messages.map((msg, index) => (
           <div key={index} className="message-box" dangerouslySetInnerHTML={{ __html: msg }}></div>

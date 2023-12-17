@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Settings.css';
 import Modal from 'react-modal';
 import { useLanguage } from '../contexts/LanguageContext';
 import en from '../languages/en.json';
 import dk from '../languages/dk.json';
+import UserIdContext from '../contexts/UserIdContext';
 
-function Settings({ showSettingsModal, setShowSettingsModal, setAvatar, avatars, isLoggedIn, loggedInUserId }) {
+function Settings({ showSettingsModal, setShowSettingsModal, setAvatar, avatars }) {
+    const { loggedInUserId, isLoggedIn } = useContext(UserIdContext);
     const { language, setLanguage } = useLanguage();
     const text = language === 'en' ? en : dk;
 

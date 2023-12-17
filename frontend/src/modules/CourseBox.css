@@ -4,15 +4,15 @@
     display: flex;
     align-items: center;
     background-color: #468189;
-    color: #031926;
+    color: #fff;
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     border-radius: 5px;
 }
 
 .course-image {
-    width: 100px; /* Adjust as needed */
-    height: 100px; /* Adjust as needed */
+    width: 100px;
+    height: 100px;
     margin-right: 10px;
 }
 

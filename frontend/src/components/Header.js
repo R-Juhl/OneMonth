@@ -1,5 +1,5 @@
 // Header.js
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Modal from 'react-modal';
 import logo from '../images/logo.png';
 import './Header.css';
@@ -7,8 +7,10 @@ import './Header_modals.css';
 import { useLanguage } from '../contexts/LanguageContext';
 import en from '../languages/en.json';
 import dk from '../languages/dk.json';
+import UserIdContext from '../contexts/UserIdContext';
 
-function Header({ updateLoginStatus, currentUser, setCurrentUser, handleLogout, isLoggedIn, handleLogin }) {
+function Header() {
+  const { handleLogin, handleLogout, isLoggedIn, currentUser } = useContext(UserIdContext);
   const { language } = useLanguage();
   const text = language === 'en' ? en : dk;
   const [showSignUp, setShowSignUp] = useState(false);

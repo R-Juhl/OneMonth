@@ -1,17 +1,19 @@
 // GetStarted.js
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './GetStarted.css';
 import Modal from 'react-modal';
 import { useLanguage } from '../contexts/LanguageContext';
 import en from '../languages/en.json';
 import dk from '../languages/dk.json';
+import UserIdContext from '../contexts/UserIdContext';
 
 import freeIcon from '../images/subscriptions/free.png';
 import mentorIcon from '../images/subscriptions/mentor.png';
 import premiumIcon from '../images/subscriptions/premium.png';
 import customIcon from '../images/subscriptions/custom.png';
 
-function GetStarted({ showStartModal, setShowStartModal, isLoggedIn, onUserVersionSelect, onSuccessfulSelection }) {
+function GetStarted({ showStartModal, setShowStartModal, onUserVersionSelect, onSuccessfulSelection }) {
+  const { isLoggedIn } = useContext(UserIdContext);
   const { language } = useLanguage();
   const text = language === 'en' ? en : dk;
   const [errorMessage, setErrorMessage] = useState("");
@@ -74,6 +76,7 @@ function GetStarted({ showStartModal, setShowStartModal, isLoggedIn, onUserVersi
     }
     setErrorMessage("");
     await onUserVersionSelect(userVersion);
+    // Perform some action after successful selection (e.g. close the modal)
     onSuccessfulSelection(); // Call the callback function after successful selection
   };
 
