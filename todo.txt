@@ -8,6 +8,11 @@ Implement flexible assistant id
         stop rendering VariableContent and render Curriculum
         Also want user to be able to click on Curriculum page tab
     Start/coninue course buttons in CourseBox should change based on existing thread id in database
+    Is ready should be set upon get thread messages, so correct buttons are available in session
+    Error on user version Selection
+
+Logo retrieval bug (console)
+    Ask gpt what the image is supposed to do, then consider replacing it
 
 Various bugs based on states after having moved states to a context that results in incorrect rendering of UI
 

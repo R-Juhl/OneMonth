@@ -1,11 +1,11 @@
 /* WELCOME COMPONENT STYLES */
 
 .welcome-container {
-  max-width: 50%;
+  max-width: 70%;
   margin: 0 auto;
   padding: 20px;
   padding-top: 100px;
-  padding-bottom: 250px; /*REMOVE: used to test scroll on UI*/
+  padding-bottom: 0px;
   color: #031926;
 }
 

@@ -11,11 +11,10 @@ import Howitworks from './Howitworks';
 import Profile from './Profile';
 import Settings from './Settings';
 
-const MainContent = ({ isSidebarExpanded, setIsSidebarExpanded, avatars, setAvatar }) => {
+const MainContent = ({ isSidebarExpanded, setIsSidebarExpanded, avatars, setAvatar, currentView, setCurrentView }) => {
     const { userVersion, isLoggedIn, loggedInUserId, handleUserVersionSelect } = useContext(UserIdContext);
     const [currentTab, setCurrentTab] = React.useState('');
     const [selectedCourseId, setSelectedCourseId] = React.useState(null);
-    const [currentView, setCurrentView] = React.useState('Curriculum');
     const [showStartModal, setShowStartModal] = useState(false);
     const [showSettingsModal, setShowSettingsModal] = useState(false);
     const [showProfileModal, setShowProfileModal] = useState(false);
@@ -71,6 +70,10 @@ const MainContent = ({ isSidebarExpanded, setIsSidebarExpanded, avatars, setAvat
         setCurrentView('VariableContent');
     }, []);
 
+    const handleLeaveClass = useCallback(() => {
+        setCurrentView('Curriculum');
+    }, []);
+
     return (
         <div className={`Main-container ${isSidebarExpanded ? 'expanded' : 'collapsed'}`}>
 
@@ -101,25 +104,26 @@ const MainContent = ({ isSidebarExpanded, setIsSidebarExpanded, avatars, setAvat
                 <VariableContent
                     courseId={selectedCourseId}
                     courseTitle={CourseTitle}
+                    onLeaveClass={handleLeaveClass}
                 />
             )}
 
             <Howitworks
-              showHowitworksModal={showHowitworksModal}
-              setShowHowitworksModal={setShowHowitworksModal}
+            showHowitworksModal={showHowitworksModal}
+            setShowHowitworksModal={setShowHowitworksModal}
             />
 
             <Profile
-              showProfileModal={showProfileModal}
-              setShowProfileModal={setShowProfileModal}
+            showProfileModal={showProfileModal}
+            setShowProfileModal={setShowProfileModal}
             />
             <Settings
-              showSettingsModal={showSettingsModal}
-              setShowSettingsModal={setShowSettingsModal}
-              setAvatar={setAvatar}
-              avatars={avatars}
-              isLoggedIn={isLoggedIn}
-              loggedInUserId={loggedInUserId}
+            showSettingsModal={showSettingsModal}
+            setShowSettingsModal={setShowSettingsModal}
+            setAvatar={setAvatar}
+            avatars={avatars}
+            isLoggedIn={isLoggedIn}
+            loggedInUserId={loggedInUserId}
             />
 
         </div>

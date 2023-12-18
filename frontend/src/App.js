@@ -1,5 +1,5 @@
 //App.js
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Modal from 'react-modal';
 import './App.css';
 import { LanguageProvider } from './contexts/LanguageContext';
@@ -17,10 +17,14 @@ Modal.setAppElement('#root');
 function App() {
   const [avatar, setAvatar] = React.useState(avatars.avatar_d);
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
+  const [currentView, setCurrentView] = useState('Curriculum');
 
+  const setViewToCurriculum = useCallback(() => {
+    setCurrentView('Curriculum');
+  }, []);
 
   return (
-    <UserIdProvider>
+    <UserIdProvider setViewToCurriculum={setViewToCurriculum}>
       <LanguageProvider>
         <LanguageManager>
           <div>
@@ -33,6 +37,8 @@ function App() {
                 setIsSidebarExpanded={setIsSidebarExpanded}
                 setAvatar={setAvatar}
                 avatars={avatars}
+                currentView={currentView}
+                setCurrentView={setCurrentView}
               />
 
               <Assistant

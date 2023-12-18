@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 const UserIdContext = React.createContext();
 
-export const UserIdProvider = ({ children }) => {
+export const UserIdProvider = ({ children, setViewToCurriculum }) => {
   const [loggedInUserId, setLoggedInUserId] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState('Not logged in');
@@ -64,6 +64,8 @@ export const UserIdProvider = ({ children }) => {
         setLoggedInUserId(data.user_id);
         setCurrentUser(data.user);
         setUserVersion(data.user_version);
+        setViewToCurriculum();
+        console.log("setViewToCurriculum called")
       } else {
         console.error(data.error || 'Login failed');
       }
@@ -104,7 +106,7 @@ export const UserIdProvider = ({ children }) => {
       userVersion,
       handleLogin,
       handleLogout,
-      handleUserVersionSelect
+      handleUserVersionSelect,
     }}>
       {children}
     </UserIdContext.Provider>

@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback, useContext } from 'react';
 import './VariableContent.css';
 import UserIdContext from '../contexts/UserIdContext';
 
-const VariableContent = ({ courseId, courseTitle }) => {
+const VariableContent = ({ courseId, courseTitle, onLeaveClass }) => {
   const { loggedInUserId } = useContext(UserIdContext);
   const [messages, setMessages] = useState([]);
   const [threadId, setThreadId] = useState(null);
@@ -153,6 +153,9 @@ const VariableContent = ({ courseId, courseTitle }) => {
             </div>
           </>
         )}
+        <div>
+          <button className="button-style" onClick={onLeaveClass}>Leave Class</button>
+        </div>
       </div>
     </div>
   );
