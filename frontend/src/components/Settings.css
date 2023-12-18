@@ -9,13 +9,13 @@
 
 .modal {
   background-color: #9DBEBB;
-    color: #031926;
-    border-radius: 8px;
-    padding: 20px;
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    margin: auto;
+  color: #031926;
+  border-radius: 8px;
+  padding: 20px;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
 }
 
 .modal h2 {

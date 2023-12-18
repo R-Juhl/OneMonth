@@ -1,76 +1,79 @@
+Manage language across app
+    Language in VariableContent
+    Language in backend
+        GPT assistant prompts, initialmessage, etc.
+        Language for all buttons, titles, instructions, initialmessage, etc. should depend on app language from settings
 
 
+Is ready should be set upon get thread messages, so correct buttons are available in session
 
-
-Implement flexible assistant id
-    Language for all buttons, titles, instructions, initialmessage, etc. should depend on app language from settings
-    "Leave Class" button in course session (both when ready and when not ready)
-        stop rendering VariableContent and render Curriculum
-        Also want user to be able to click on Curriculum page tab
-    Start/coninue course buttons in CourseBox should change based on existing thread id in database
-    Is ready should be set upon get thread messages, so correct buttons are available in session
-    Error on user version Selection
 
 Logo retrieval bug (console)
     Ask gpt what the image is supposed to do, then consider replacing it
 
+
+Course Selection component
+    Upon opening Select Courses component the currently selected courses should be checked/selected on UI
+    Course selection submit notification should be displayed in app UI instead of popup
+    Add STX + HTX courses
+
+
+Error on user version Selection
+
+
 Various bugs based on states after having moved states to a context that results in incorrect rendering of UI
 
-Course/study Selection component (tab or modal?)
-    Select gymnasium
-    select courses to take (Afsaetning A, Afsaetning B, Damsl A, etc.)
-    How to implement as a start requirement, but also able to change course later?`?
-        New tab below Curriculum to Change Courses
 
 Courses
     Progress should be a variable that depends on number of thread messages to start with (later a algo where the GPT evaluates teached content in relation to total syllabus)
+        Add database progression implementations for course threads
+        GPT to evaluate progress using listed messages as a start?
+        Mastery will be separate and depend on exercise answers from user
     Add Exercise component to courses
         later implement mastery as variable
+
 
 Curriculum design
     more visuals for progress, mastery, etc.
 
-Redesign Welcome.js component
-    design overhaul
-    User signup modal init when clicking bottom box in Welcome.js comp
-
-
-Customizable color palette
-    In settings make posssible to change color palette
-    implement site-wide
-
 
 Settings
     implement functionality to lock features behind paywall
+        grey out locked content, price on hover
     add currency implementation into app
         show currency in header for users that are logged in
         Set price for items in settings, shown on hover.
+    ai personality settings
+    delete account option?
+    changing app color palette
 
 
-Other visuals/design
+Visuals/design/styling
     redo sidetab
         design
         animations on tabs, and currently selected color for tabs
+    Customizable color palette
+        In settings make posssible to change color palette
+        implement site-wide
+        default light and dark mode + multiple premium palettes
+    Redesign Welcome.js component
+        design overhaul
+        User signup modal init when clicking bottom box in Welcome.js comp
+    How it works page tab (permanent)
+        full list of features and descriptions
+        detailed comparison between user models
+        pricing
+
 
 Fix:
     LegacyAPIWarning: The Query.get() method is considered legacy as of the 1.x series of SQLAlchemy and becomes a legacy construct in 2.0. The method is now available as Session.get() (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
-
     Error while trying to use the following icon from the Manifest: http://localhost:3000/logo.png (Download error or resource isn't a valid image)
-
     log ind modals (an others) should appear on top layer. For instance, when GetStarted is open and clicking on log in, the login modal appears behind the GetStarted component
 
-Features page tab (permanent)
-    full list of features and descriptions
-    detailed comparison between user models
-    pricing
 
 GPT assistant exercises
     Implement exercises. Should be generated and displayed at a certain interval and/or by user request?
     Can it somehow make use of custom functions for the GPT assistant api?
-
-Add database progression implementations for course threads
-    GPT to evaluate progress using listed messages as a start
-    Mastery will be separate and depend on exercise answers from user
 
 
 Since GPT assistant generation is slow, consider adding:
@@ -79,16 +82,6 @@ Since GPT assistant generation is slow, consider adding:
     Best approach is likely to start new GPT msg generation immedieatly on both fetchinitialmsg and after each "continue" submission.
         This msg should then be put in queue and be displayed when the button is actually pressed if ready, or wait ontil completion and then displayed
         If other submission than continue from user, then delete qeued msg or stop current msg generation, and start generating new msg based on user input
-
-
-For settings:
-    ai personality settings
-    implement actual language change functionality
-    delete account option?
-    changing app color palette
-    change AI model between 3.5 turbo and 4 (v4 available in premium sub plan only)
-    (some of these settings are just for dev and will be paid options in the app)
-    Lock mechanic and visualization on options (palettes, avatars, etc.)
 
 
 AI assistant basic functionality
@@ -100,26 +93,16 @@ AI assistant basic functionality
     Vastly reduce available use with rate limit for users that are not logged in (only the basic ai assistant is available in this state)
 
 
-Profile sidebar tab
+Profile sidebar tab?
     for setting profile configuration. STX/HHX/HTX, learning style, etc.
     *for dev purposes
     *but later used as the intro questionnaire. Then keep it as page so user can always configure
+    Think more about how to use or if to use this tab component
 
 
-Get Started page tab
-    Will be (only) available conditional page tab when user not logged in or user logged in && status not started/chosen sub model
-    When clicked, option to sign in or create user (if not logged in) - effectively forcing user signups for app use
-    Next, upon first login to verified user, give 3 options for getting started: Free, Mentor, Unlimited, Custom (upload own studyplan(s) doc and app will work with this)
-        With short descriptions for each, and nice visual with icons
-        Choosing one will add a user version id to the database for the specific user id
-        Option to upgrade version later
-        All free for dev
-    After selecting a user version, initialize app based on the specified version with relevant page tabs, etc.
-
-
-Work on page conditions
-    For instance, if userLoggedIn && UserSub=1,2,3 or 4, then do not show Welcome on app init
-    *UserSub being the various subscription models
+Visuals:
+    Make SelectCourses look like a weekly school schedule for pure aestitic purposes
+    Do something practical, but also creative, for Curriculum too
 
 
 Email verification.
@@ -130,14 +113,7 @@ Studieretningsproject
     Unlock SOP course (for HHX) with a certain overall progress/mastery (or specific course progress)
 
 
-Do not verify token for opening page tabs and all other random clicks (for instance clicks in Settings.js modal) ?? or is this fine?
-
-
-Buttons on returning user logic
-    setIsReady in VariableContent.js should only be true if messages in thread > 1 (ready has been clicked previosuly for the unique user id)
-
-
 Padding/margin below error msg in GetStarted
 
 
-migrate handleSignupSubmit from Header.js to App.js at some point for better management
+Fix: quickly shows Welcome.js component on refresh (likely while it ways for token verification to complete)

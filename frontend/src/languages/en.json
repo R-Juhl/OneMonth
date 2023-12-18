@@ -23,6 +23,8 @@
     "tabsHowitworksTitle": "How it works",
     "tabsProfileTitle": "Profile",
     "tabsSettingsTitle": "Settings",
+    "tabsCurriculumTitle": "Curriculum",
+    "tabsSelectcoursesTitle": "Select Courses",
 
     "assistantHelpMsg": "<span>Need help?<br> Click me</span>",
     "assistantGreeting": "Hi, how can I help you?",
@@ -62,11 +64,48 @@
     "welcomeDescription5": "With OneMonth, you're not alone. Our <strong>AI assistant</strong> is always ready to help with text, images, and voice input, continuously adapting to your preferences and learning style.",
     "welcomeDescription6": "<strong>Sign up now</strong> and experience an education tailored to the digital age, suited to your intelligence and learning style. Take the first step towards your future with OneMonth!",
     
+    "selectcourseTitle": "Select Education & Courses",
+
     "curriculumTitle": "Curriculum",
     "totalCourses": "Total courses",
     "coursesStarted": "Courses started",
     "overallProgress": "Overall progress",
-    "overallMastery": "Overall mastery"
+    "overallMastery": "Overall mastery",
+    "progress": "Progress",
+    "mastery": "Mastery",
+    "pointsEarned": "Points earned",
+    "exercisesCompleted": "Exercises completed",
+    "startClass": "Start Class",
+    "continueClass": "Continue Class",
+
+    "selectcoursesTitle": "Select education and courses",
+
+    "id1CourseName": "Marketing  A",
+    "id2CourseName": "Marketing  B",
+    "id3CourseName": "Danish A",
+    "id4CourseName": "English A",
+    "id5CourseName": "Business Law B",
+    "id6CourseName": "Business Law C",
+    "id7CourseName": "Financing B",
+    "id8CourseName": "French Continuers Language A",
+    "id9CourseName": "French Continuers Language B",
+    "id10CourseName": "French Beginners Language A",
+    "id11CourseName": "History B",
+    "id12CourseName": "International Economics A",
+    "id13CourseName": "International Economics B",
+    "id14CourseName": "Math A",
+    "id15CourseName": "Math B",
+    "id16CourseName": "Math C",
+    "id17CourseName": "Civic Studies C",
+    "id18CourseName": "Spanish Continuers Language A",
+    "id19CourseName": "Spanish Continuers Language B",
+    "id20CourseName": "Spanish Beginners Language A",
+    "id21CourseName": "German Continuers Language A",
+    "id22CourseName": "German Continuers Language B",
+    "id23CourseName": "German Beginners Language A",
+    "id24CourseName": "Business Economics A",
+    "id25CourseName": "Business Economics B"
+
     
 }
   

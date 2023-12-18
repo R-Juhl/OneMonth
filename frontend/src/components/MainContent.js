@@ -4,15 +4,22 @@ import UserIdContext from '../contexts/UserIdContext';
 import GetStarted from '../modules/GetStarted';
 import Curriculum from '../modules/Curriculum';
 import VariableContent from '../modules/VariableContent';
+import SelectCourses from '../modules/SelectCourses';
+
+import { useLanguage } from '../contexts/LanguageContext';
+import en from '../languages/en.json';
+import dk from '../languages/dk.json';
+
 import Welcome from './Welcome';
 import Sidebar from './Sidebar';
-
 import Howitworks from './Howitworks';
 import Profile from './Profile';
 import Settings from './Settings';
 
 const MainContent = ({ isSidebarExpanded, setIsSidebarExpanded, avatars, setAvatar, currentView, setCurrentView }) => {
     const { userVersion, isLoggedIn, loggedInUserId, handleUserVersionSelect } = useContext(UserIdContext);
+    const { language } = useLanguage();
+    const text = language === 'en' ? en : dk;
     const [currentTab, setCurrentTab] = React.useState('');
     const [selectedCourseId, setSelectedCourseId] = React.useState(null);
     const [showStartModal, setShowStartModal] = useState(false);
@@ -24,42 +31,41 @@ const MainContent = ({ isSidebarExpanded, setIsSidebarExpanded, avatars, setAvat
     const permanentTabs = 
         ['Howitworks', 'Profile', 'Settings'];
     const conditionalTabs = isLoggedIn && userVersion 
-        ? [{ name: "Curriculum", component: "Curriculum", priority: 1 }] // Show Curriculum tab if userVersion exists
-        : [{ name: "Get Started", component: "GetStarted", priority: 2 }]; // Show GetStarted tab if no userVersion
+    ? [
+        { name: text.tabsCurriculumTitle, component: "Curriculum", priority: 1 }, // Show Curriculum tab if userVersion exists
+        { name: text.tabsSelectcoursesTitle, component: "SelectCourses", priority: 2 } // Show Select Courses tab if userVersion exists
+        ]
+    : [{ name: text.tabsGetstartedTitle, component: "GetStarted", priority: 1 }]; // Show GetStarted tab if no userVersion
 
     const handleTabClick = (tabName) => {
-        if (permanentTabs.includes(tabName)) {
+        setShowHowitworksModal(false);
+        setShowProfileModal(false);
+        setShowSettingsModal(false);
+        setShowStartModal(false);
+        setCurrentTab(tabName);
+    
         switch (tabName) {
+            case 'Curriculum':
+                setCurrentView('Curriculum');
+                break;
+            case 'SelectCourses':
+                setCurrentView('SelectCourses');
+                break;
+            case 'GetStarted':
+                setShowStartModal(true);
+                break;
             case 'Howitworks':
-            setShowHowitworksModal(true);
-            setShowProfileModal(false);
-            setShowSettingsModal(false);
-            break;
+                setShowHowitworksModal(true);
+                break;
             case 'Profile':
-            setShowProfileModal(true);
-            setShowHowitworksModal(false);
-            setShowSettingsModal(false);
-            break;
+                setShowProfileModal(true);
+                break;
             case 'Settings':
-            setShowSettingsModal(true);
-            setShowHowitworksModal(false);
-            setShowProfileModal(false);
-            break;
-            // Add more cases for other permanent tabs as needed
+                setShowSettingsModal(true);
+                break;
+            // Add more cases for other tabs as needed
             default:
-            // Handle default case if needed
-            break;
-        }
-        } else {
-            // Find if tabName matches any component name in conditionalTabs
-            const tabExists = conditionalTabs.some(tab => tab.component === tabName || tab.name === tabName);
-            if (tabExists) {
-                setCurrentTab(tabName);
-                setShowHowitworksModal(false);
-                setShowProfileModal(false);
-                setShowSettingsModal(false);
-                setShowStartModal(tabName === 'GetStarted');
-            }
+                break;
         }
     };
 
@@ -86,7 +92,7 @@ const MainContent = ({ isSidebarExpanded, setIsSidebarExpanded, avatars, setAvat
 
             {!userVersion && <Welcome />}
 
-            {currentTab === 'GetStarted' && !userVersion && (
+            {showStartModal && !userVersion && (
                 <GetStarted
                     showStartModal={showStartModal}
                     setShowStartModal={setShowStartModal}
@@ -94,13 +100,15 @@ const MainContent = ({ isSidebarExpanded, setIsSidebarExpanded, avatars, setAvat
                 />
             )}
 
-            {currentTab === '' && currentView === 'Curriculum' && userVersion && (
-                <Curriculum
-                    onStartCourse={handleCourseSessionStart}
+
+            {isLoggedIn && userVersion && currentView === 'Curriculum' && (
+                <Curriculum 
+                    onStartCourse={handleCourseSessionStart} 
                 />
             )}
-
-            {currentView === 'VariableContent' && (
+            {isLoggedIn && userVersion && currentView === 'SelectCourses' &&
+                <SelectCourses />}
+            {isLoggedIn && userVersion && currentView === 'VariableContent' && (
                 <VariableContent
                     courseId={selectedCourseId}
                     courseTitle={CourseTitle}
@@ -108,23 +116,21 @@ const MainContent = ({ isSidebarExpanded, setIsSidebarExpanded, avatars, setAvat
                 />
             )}
 
-            <Howitworks
-            showHowitworksModal={showHowitworksModal}
-            setShowHowitworksModal={setShowHowitworksModal}
-            />
 
-            <Profile
-            showProfileModal={showProfileModal}
-            setShowProfileModal={setShowProfileModal}
-            />
-            <Settings
-            showSettingsModal={showSettingsModal}
-            setShowSettingsModal={setShowSettingsModal}
-            setAvatar={setAvatar}
-            avatars={avatars}
-            isLoggedIn={isLoggedIn}
-            loggedInUserId={loggedInUserId}
-            />
+            {showHowitworksModal && <Howitworks 
+                showHowitworksModal={showHowitworksModal}
+                setShowHowitworksModal={setShowHowitworksModal} 
+            />}
+            {showProfileModal && <Profile 
+                showProfileModal={showProfileModal}
+                setShowProfileModal={setShowProfileModal} 
+            />}
+            {showSettingsModal && <Settings 
+                showSettingsModal={showSettingsModal}
+                setShowSettingsModal={setShowSettingsModal} 
+                setAvatar={setAvatar} 
+                avatars={avatars} 
+            />}
 
         </div>
     );

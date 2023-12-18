@@ -1,11 +1,18 @@
 // CourseBox.js
 import React, { useContext } from 'react';
 import './CourseBox.css';
+import { useLanguage } from '../contexts/LanguageContext';
+import en from '../languages/en.json';
+import dk from '../languages/dk.json';
+
 import ProgressBar from './ProgressBar';
 import UserIdContext from '../contexts/UserIdContext';
 
-const CourseBox = ({ course, onStartCourse }) => {
+const CourseBox = ({ course, onStartCourse, userCourseSessions }) => {
   const { loggedInUserId } = useContext(UserIdContext);
+  const { language } = useLanguage();
+  const text = language === 'en' ? en : dk;
+  const hasStartedCourse = userCourseSessions.some(session => session.course_id === course.id);
 
   // Construct the image path using the course id
   let imagePath;
@@ -24,20 +31,20 @@ const CourseBox = ({ course, onStartCourse }) => {
   };
 
   return (
-    <div className={`course-box ${course.started ? 'started' : 'not-started'}`}>
+    <div className={`course-box ${hasStartedCourse ? 'started' : 'not-started'}`}>
       {imagePath && <img src={imagePath} alt={course.title} className="course-image" />}
       <div className="course-info">
         <h2 className="course-title">{course.title}</h2>
-        {course.started ? (
+        {hasStartedCourse ? (
           <>
-            <ProgressBar label="Progress" percentage={course.progress} />
-            <ProgressBar label="Mastery" percentage={course.mastery} />
-            <p>Points earned: {course.pointsEarned}</p>
-            <p>Exercises: {course.exercises}</p>
-            <button onClick={startSession}>Continue Course</button>
+            <ProgressBar label={text.progress} percentage={course.progress} />
+            <ProgressBar label={text.mastery} percentage={course.mastery} />
+            <p>{text.pointsEarned}: {course.pointsEarned}</p>
+            <p>{text.exercisesCompleted}: {course.exercises}</p>
+            <button onClick={startSession}>{text.continueClass}</button>
           </>
         ) : (
-          <button onClick={startSession}>Start Class</button>
+          <button onClick={startSession}>{text.startClass}</button>
         )}
       </div>
     </div>

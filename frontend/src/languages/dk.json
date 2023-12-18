@@ -23,6 +23,8 @@
     "tabsHowitworksTitle": "Hvordan det virker",
     "tabsProfileTitle": "Profil",
     "tabsSettingsTitle": "Indstillinger",
+    "tabsCurriculumTitle": "Pensum",
+    "tabsSelectcoursesTitle": "Vælg fag",
 
     "assistantHelpMsg": "<span>Brug for hjælp?<br> Klik her</span>",
     "assistantGreeting": "Hej, hvordan kan jeg hjælpe dig?",
@@ -62,10 +64,46 @@
     "welcomeDescription5": "Med EnMåned, står du ikke alene. Vores <strong>AI-assistent</strong> er altid klar til at hjælpe med tekst, billeder og taleinput, og tilpasser sig løbende til dine præferencer og lærestil.",
     "welcomeDescription6": "<strong>Tilmeld dig nu</strong> og oplev en uddannelse, der er skræddersyet til den digitale tidsalder, og som passer til din intelligens og læringsstil. Tag det første skridt mod din fremtid med EnMåned!",
     
+    "selectcourseTitle": "Vælg Uddanelse & Fag",
+
     "curriculumTitle": "Pensum",
     "totalCourses": "Antal fag",
     "coursesStarted": "Fag startet",
-    "overallProgress": "Fremskridt",
-    "overallMastery": "Overall mastery"
+    "overallProgress": "Overordnet fremskridt",
+    "overallMastery": "Overordnet mestring",
+    "progress": "Fremskridt",
+    "mastery": "Mestring",
+    "pointsEarned": "Point optjent",
+    "exercisesCompleted": "Opgaver fuldført",
+    "startClass": "Start Time",
+    "continueClass": "Fortsæt fag",
+
+    "selectcoursesTitle": "Vælg uddannelse og fag",
+
+    "id1CourseName": "Afsætning A",
+    "id2CourseName": "Afsætning B",
+    "id3CourseName": "Dansk A",
+    "id4CourseName": "Engelsk A",
+    "id5CourseName": "Erhvervsjura B",
+    "id6CourseName": "Erhvervsjura C",
+    "id7CourseName": "Finansiering B",
+    "id8CourseName": "Fransk Fortsættersprog A",
+    "id9CourseName": "Fransk Fortsættersprog B",
+    "id10CourseName": "Fransk Begyndersprog A",
+    "id11CourseName": "Historie B",
+    "id12CourseName": "International Økonomi A",
+    "id13CourseName": "International Økonomi B",
+    "id14CourseName": "Matematik A",
+    "id15CourseName": "Matematik B",
+    "id16CourseName": "Matematik C",
+    "id17CourseName": "Samfundsfag C",
+    "id18CourseName": "Spansk Fortsættersprog A",
+    "id19CourseName": "Spansk Fortsættersprog B",
+    "id20CourseName": "Spansk Begyndersprog A",
+    "id21CourseName": "Tysk Fortsættersprog A",
+    "id22CourseName": "Tysk Fortsættersprog B",
+    "id23CourseName": "Tysk Begyndersprog A",
+    "id24CourseName": "Virksomhedsøkonomi A",
+    "id25CourseName": "Virksomhedsøkonomi B"
 
 }  

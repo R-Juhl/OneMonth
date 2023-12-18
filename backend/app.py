@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import URLSafeTimedSerializer as Serializer
 from datetime import datetime, timedelta
 import logging
-from modules.models import db, User, UserCourseSession
+from modules.models import db, User, UserCourseSession, UserSelectedCourse
 
 # Create a custom logger
 logger = logging.getLogger('myapp')
@@ -139,13 +139,17 @@ def update_user_version():
     return jsonify({"error": "User not found"}), 404
 
 
-### Module functions/routes ###
+### Module functions/routes: ###
+
+
+# Route for handling the assistant #
 @app.route('/assistant', methods=['POST'])
 def handle_assistant():
     data = request.get_json()
     response_text = assistant(data)
     return jsonify({"response": response_text})
 
+# Route for getting or creating a thread for a course #
 @app.route('/get_or_create_course_thread', methods=['POST'])
 def get_or_create_course_thread():
     data = request.json
@@ -154,6 +158,7 @@ def get_or_create_course_thread():
     thread_id, is_new_thread = get_course_thread(user_id, course_id)
     return jsonify({"thread_id": thread_id, "isNewThread": is_new_thread})
 
+# Route for getting the messages of a thread #
 @app.route('/get_thread_messages', methods=['POST'])
 def handle_get_thread_messages():
     data = request.json
@@ -161,6 +166,7 @@ def handle_get_thread_messages():
     messages_list = get_thread_messages(thread_id)
     return jsonify({"messages": messages_list})
 
+# Route for starting a course #
 @app.route('/course_initial', methods=['GET'])
 def handle_initial():
     thread_id = request.args.get('thread_id')
@@ -168,6 +174,7 @@ def handle_initial():
     print(f"Recerived course_title:", course_title)
     return get_initial_message(thread_id, course_title)
 
+# Route for continuing a course #
 @app.route('/course_continue', methods=['POST'])
 def handle_continue():
     data = request.json
@@ -183,6 +190,43 @@ def handle_continue():
 
     return response
 
+# Route for getting the user's course sessions #
+@app.route('/get_user_course_sessions', methods=['POST'])
+def get_user_course_sessions():
+    user_id = request.json.get('user_id')
+    sessions = UserCourseSession.query.filter_by(user_id=user_id).all()
+    sessions_data = [{'course_id': session.course_id, 'thread_id': session.thread_id} for session in sessions]
+    return jsonify(sessions_data)
+
+# Route for saving the user's course selection #
+@app.route('/save_user_courses', methods=['POST'])
+def save_user_courses():
+    data = request.json
+    user_id = data['user_id']
+    course_ids = data['course_ids']
+
+    # Delete existing user course selections
+    UserSelectedCourse.query.filter_by(user_id=user_id).delete()
+
+    # Save new selections
+    for course_id in course_ids:
+        new_selection = UserSelectedCourse(user_id=user_id, course_id=course_id)
+        db.session.add(new_selection)
+
+    try:
+        db.session.commit()
+        return jsonify({"message": "Courses saved successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+    
+# Route for retrieving the user's course selection #
+@app.route('/get_user_selected_courses', methods=['POST'])
+def get_user_selected_courses():
+    user_id = request.json.get('user_id')
+    selected_courses = UserSelectedCourse.query.filter_by(user_id=user_id).all()
+    selected_course_ids = [course.course_id for course in selected_courses]
+    return jsonify(selected_course_ids)
 
 if __name__ == '__main__':
     app.run(debug=True)
