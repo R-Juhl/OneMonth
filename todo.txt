@@ -1,15 +1,15 @@
-Manage language across app
-    Language in VariableContent
-    Language in backend
-        GPT assistant prompts, initialmessage, etc.
-        Language for all buttons, titles, instructions, initialmessage, etc. should depend on app language from settings
+
+GPTteacher - text to speech and speech to text
+    add optional voice output from GPT teacher text messages
+        later add the same for the Assistatn + optional voice input
+    Add stream to live
+    add pause/stop audio button.
 
 
-Is ready should be set upon get thread messages, so correct buttons are available in session
+Translate course selection component
 
 
 Course Selection component
-    Upon opening Select Courses component the currently selected courses should be checked/selected on UI
     Course selection submit notification should be displayed in app UI instead of popup
         Or simply return to Curriculum view?
     Add STX + HTX courses
@@ -18,16 +18,16 @@ Course Selection component
             therfore, a need for visual identification in the coursebox (not the course name)
 
 
+VariableContent
+    isReady only after having clicked the button. Therefore not when only initialmessage is displayed. If easy to implement that is
+
+
 Error on user version Selection
 
 
-
-GPTteacher
-    add optional voice output from GPT teacher text messages
-        later add the same for the Assistatn + optional voice input
-
 GPTassistant
     Give context on site and functionality
+
 
 Courses
     Progress should be a variable that depends on number of thread messages to start with (later a algo where the GPT evaluates teached content in relation to total syllabus)
@@ -36,10 +36,6 @@ Courses
         Mastery will be separate and depend on exercise answers from user
     Add Exercise component to courses
         later implement mastery as variable
-
-
-Curriculum design
-    more visuals for progress, mastery, etc.
 
 
 Settings
@@ -68,6 +64,12 @@ Visuals/design/styling
         full list of features and descriptions
         detailed comparison between user models
         pricing
+    Curriculum design
+        more visuals for progress, mastery, etc.
+
+    SelectCourses
+        Make SelectCourses look like a weekly school schedule for pure aestitic purposes
+        Do something practical, but also creative, for Curriculum too
 
 
 Fix:
@@ -90,6 +92,7 @@ Since GPT assistant generation is slow, consider adding:
 
 
 AI assistant basic functionality
+    redo language logic
     improve/add default context
     personality settings?
     enable/disable avatar voice: if enabled, AI output (not default msg) will output audio
@@ -103,11 +106,6 @@ Profile sidebar tab?
     *for dev purposes
     *but later used as the intro questionnaire. Then keep it as page so user can always configure
     Think more about how to use or if to use this tab component
-
-
-Visuals:
-    Make SelectCourses look like a weekly school schedule for pure aestitic purposes
-    Do something practical, but also creative, for Curriculum too
 
 
 Email verification.

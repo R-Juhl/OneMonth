@@ -18,6 +18,31 @@ const VariableContent = ({ courseId, courseTitle, onLeaveClass }) => {
   const [loadingDots, setLoadingDots] = useState('');
   const [isThreadCreationStarted, setIsThreadCreationStarted] = useState(false);
 
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [audioSrc, setAudioSrc] = useState('');
+
+  const handleTTSButtonClick = async (messageText) => {
+    // If there's currently playing audio, stop it
+    if (isPlaying) {
+      setIsPlaying(false);
+      setAudioSrc('');
+    }
+  
+    // Call Flask API to get TTS audio
+    const response = await fetch('http://localhost:5000/text_to_speech', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ text: messageText })
+    });
+    const data = await response.json();
+  
+    // Use the audio URL from the response to set the audio source
+    if (data.audio_url) {
+      setAudioSrc(data.audio_url);
+      setIsPlaying(true);
+    }
+};
+
   const fetchInitialMessage = useCallback(async (threadId, courseId, userId) => {
     if (!threadId) {
       console.error('No thread ID available for initial message');
@@ -142,8 +167,12 @@ const VariableContent = ({ courseId, courseTitle, onLeaveClass }) => {
       <h1 className='content-title'>{courseTitle} {text.courseTitle}</h1>
       <div>
         {messages.map((msg, index) => (
-          <div key={index} className="message-box" dangerouslySetInnerHTML={{ __html: msg }}></div>
+          <div key={index} className="message-container">
+            <div className="message-box" dangerouslySetInnerHTML={{ __html: msg }}></div>
+            <button onClick={() => handleTTSButtonClick(msg)}>🔊</button>
+          </div>
         ))}
+        {isPlaying && <audio src={audioSrc} autoPlay onEnded={() => setIsPlaying(false)} />}
       </div>
       {isLoading && <p className="loading-text">{text.courseLoadingMsg}{loadingDots}</p>}
       <div className='button-container'>

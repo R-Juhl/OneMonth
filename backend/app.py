@@ -1,5 +1,5 @@
 # app.py:
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -7,6 +7,14 @@ from itsdangerous import URLSafeTimedSerializer as Serializer
 from datetime import datetime, timedelta
 import logging
 from modules.models import db, User, UserCourseSession, UserSelectedCourse
+
+
+from pathlib import Path
+import uuid
+import openai
+client = openai.OpenAI(
+  api_key = os.environ.get("OPENAI_API_KEY_ONEMONTH")
+)
 
 # Create a custom logger
 logger = logging.getLogger('myapp')
@@ -228,6 +236,30 @@ def get_user_selected_courses():
     selected_courses = UserSelectedCourse.query.filter_by(user_id=user_id).all()
     selected_course_ids = [course.course_id for course in selected_courses]
     return jsonify(selected_course_ids)
+
+# Route for converting text to speech #
+@app.route('/text_to_speech', methods=['POST'])
+def text_to_speech():
+    data = request.json
+    text = data.get('text')
+    
+    try:
+        response = client.audio.speech.create(
+            model="tts-1",
+            voice="echo",
+            input=text
+        )
+        speech_file_path = Path('audio') / f"speech_{uuid.uuid4()}.mp3"
+        response.stream_to_file(str(speech_file_path))
+        # Ensure the URL is correct and accessible from the frontend
+        audio_url = f"http://localhost:5000/audio/{speech_file_path.name}"
+        return jsonify({"audio_url": audio_url}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/audio/<filename>')
+def uploaded_file(filename):
+    return send_from_directory('audio', filename)
 
 if __name__ == '__main__':
     app.run(debug=True)

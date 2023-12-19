@@ -63,8 +63,6 @@
     "welcomeDescription4": "Our <strong>mentor and premium models</strong> offer extended access to subjects and personal support, ensuring that you get the most out of your time with us.",
     "welcomeDescription5": "With OneMonth, you're not alone. Our <strong>AI assistant</strong> is always ready to help with text, images, and voice input, continuously adapting to your preferences and learning style.",
     "welcomeDescription6": "<strong>Sign up now</strong> and experience an education tailored to the digital age, suited to your intelligence and learning style. Take the first step towards your future with OneMonth!",
-    
-    "selectcourseTitle": "Select Education & Courses",
 
     "curriculumTitle": "Curriculum",
     "totalCourses": "Total courses",
@@ -79,6 +77,7 @@
     "continueClass": "Continue Class",
 
     "selectcoursesTitle": "Select education and courses",
+    "selectcoursesSubmit": "Submit",
 
     "id1CourseName": "Marketing  A",
     "id2CourseName": "Marketing  B",

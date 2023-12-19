@@ -1,5 +1,5 @@
 // SelectCourses.js
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './SelectCourses.css';
 import { useLanguage } from '../contexts/LanguageContext';
 import en from '../languages/en.json';
@@ -13,7 +13,38 @@ const SelectCourses = () => {
     const text = language === 'en' ? en : dk;
     const [selectedEducation, setSelectedEducation] = useState('');
     const [selectedCourses, setSelectedCourses] = useState(new Set());
+    const [fetchedCourses, setFetchedCourses] = useState(new Set());
     const [selectAll, setSelectAll] = useState(false);
+
+    // Fetch selected courses when component mounts
+    useEffect(() => {
+        const fetchSelectedCourses = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/get_user_selected_courses', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user_id: loggedInUserId })
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    setFetchedCourses(new Set(data));
+                }
+            } catch (error) {
+                console.error('Error fetching selected courses:', error);
+            }
+        };
+
+        if (loggedInUserId) {
+            fetchSelectedCourses();
+        }
+    }, [loggedInUserId]);
+
+    // Set the fetched courses to selectedCourses when fetchedCourses or selectedEducation changes
+    useEffect(() => {
+        setSelectedCourses(new Set([...fetchedCourses].filter(courseId => 
+            CoursesData.some(course => course.id === courseId && course.education === selectedEducation)
+        )));
+    }, [fetchedCourses, selectedEducation]);
 
     const handleEducationSelect = (education) => {
         setSelectedEducation(education);
@@ -85,7 +116,7 @@ const SelectCourses = () => {
 
     return (
         <div className="selectcourses-container">
-            <h1>Select Your Courses</h1>
+            <h1>{text.selectcoursesTitle}</h1>
             <div className="education-selection">
                 {['STX', 'HHX', 'HTX'].map(education => (
                     <button
@@ -122,7 +153,7 @@ const SelectCourses = () => {
                             </div>
                         ))}
                     </div>
-                    <button className="submit-button" onClick={handleSubmit}>Submit</button>
+                    <button className="submit-button" onClick={handleSubmit}>{text.selectcoursesSubmit}</button>
                 </>
             )}
         </div>

@@ -63,8 +63,6 @@
     "welcomeDescription4": "Vores <strong>mentor- og premiummodeller</strong> tilbyder udvidet adgang til fag og personlig støtte, der sikrer, at du får mest muligt ud af din tid hos os.",
     "welcomeDescription5": "Med EnMåned, står du ikke alene. Vores <strong>AI-assistent</strong> er altid klar til at hjælpe med tekst, billeder og taleinput, og tilpasser sig løbende til dine præferencer og lærestil.",
     "welcomeDescription6": "<strong>Tilmeld dig nu</strong> og oplev en uddannelse, der er skræddersyet til den digitale tidsalder, og som passer til din intelligens og læringsstil. Tag det første skridt mod din fremtid med EnMåned!",
-    
-    "selectcourseTitle": "Vælg Uddanelse & Fag",
 
     "curriculumTitle": "Pensum",
     "totalCourses": "Antal fag",
@@ -79,6 +77,7 @@
     "continueClass": "Fortsæt fag",
 
     "selectcoursesTitle": "Vælg uddannelse og fag",
+    "selectcoursesSubmit": "Vælg",
 
     "id1CourseName": "Afsætning A",
     "id2CourseName": "Afsætning B",
