@@ -11,7 +11,7 @@ function Howitworks({ showHowitworksModal, setShowHowitworksModal }) {
 
     return (
         <Modal
-            className="modal"
+            className="howitworksModal"
             isOpen={showHowitworksModal}
             onRequestClose={() => setShowHowitworksModal(false)}
         >

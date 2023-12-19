@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 const UserIdContext = React.createContext();
 
-export const UserIdProvider = ({ children, setViewToCurriculum }) => {
+export const UserIdProvider = ({ children, setCurrentView }) => {
   const [loggedInUserId, setLoggedInUserId] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState('Not logged in');
@@ -60,12 +60,7 @@ export const UserIdProvider = ({ children, setViewToCurriculum }) => {
       if (response.ok) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('userId', data.user_id);
-        setIsLoggedIn(true);
-        setLoggedInUserId(data.user_id);
-        setCurrentUser(data.user);
-        setUserVersion(data.user_version);
-        setViewToCurriculum();
-        console.log("setViewToCurriculum called")
+        verifyToken();
       } else {
         console.error(data.error || 'Login failed');
       }

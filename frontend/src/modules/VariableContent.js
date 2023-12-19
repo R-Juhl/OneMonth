@@ -2,9 +2,14 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import './VariableContent.css';
 import UserIdContext from '../contexts/UserIdContext';
+import { useLanguage } from '../contexts/LanguageContext';
+import en from '../languages/en.json';
+import dk from '../languages/dk.json';
 
 const VariableContent = ({ courseId, courseTitle, onLeaveClass }) => {
   const { loggedInUserId } = useContext(UserIdContext);
+  const { language } = useLanguage();
+  const text = language === 'en' ? en : dk;
   const [messages, setMessages] = useState([]);
   const [threadId, setThreadId] = useState(null);
   const [isReady, setIsReady] = useState(false);
@@ -13,12 +18,12 @@ const VariableContent = ({ courseId, courseTitle, onLeaveClass }) => {
   const [loadingDots, setLoadingDots] = useState('');
   const [isThreadCreationStarted, setIsThreadCreationStarted] = useState(false);
 
-  const fetchInitialMessage = useCallback(async (threadId, courseTitle) => {
+  const fetchInitialMessage = useCallback(async (threadId, courseId, userId) => {
     if (!threadId) {
       console.error('No thread ID available for initial message');
       return;
     }
-    const response = await fetch(`http://localhost:5000/course_initial?thread_id=${threadId}&course_title=${encodeURIComponent(courseTitle)}`);
+    const response = await fetch(`http://localhost:5000/course_initial?thread_id=${threadId}&course_id=${courseId}&user_id=${userId}`);
     const data = await response.json();
     console.log("log from fetchInitialMessage with data:", data);
     const formattedInitialMessage = formatText(data.message, 'assistant');
@@ -35,12 +40,13 @@ const VariableContent = ({ courseId, courseTitle, onLeaveClass }) => {
     if (data.messages) {
       const formattedMessages = data.messages.map(msg => formatText(msg.text, msg.role));
       setMessages(formattedMessages.reverse());
+      setIsReady(true);
     }
   }, []);
 
   useEffect(() => {
     const initiateCourseSession = async () => {
-      if (!isThreadCreationStarted && courseId && loggedInUserId && courseTitle) {
+      if (!isThreadCreationStarted && courseId && courseTitle && loggedInUserId) {
         setIsThreadCreationStarted(true);
         setIsLoading(true);
   
@@ -56,7 +62,7 @@ const VariableContent = ({ courseId, courseTitle, onLeaveClass }) => {
   
           // Fetch initial or all messages
           if (threadData.isNewThread) {
-            await fetchInitialMessage(threadData.thread_id, courseTitle);
+            await fetchInitialMessage(threadData.thread_id, courseId, loggedInUserId);
           } else {
             await fetchAllMessages(threadData.thread_id);
           }
@@ -69,7 +75,7 @@ const VariableContent = ({ courseId, courseTitle, onLeaveClass }) => {
     };
   
     initiateCourseSession();
-  }, [courseId, loggedInUserId, courseTitle, isThreadCreationStarted, fetchInitialMessage, fetchAllMessages]);
+  }, [courseId, courseTitle, loggedInUserId, isThreadCreationStarted, fetchInitialMessage, fetchAllMessages]);
   
 
   const handleNext = async (userInput) => {
@@ -133,28 +139,28 @@ const VariableContent = ({ courseId, courseTitle, onLeaveClass }) => {
 
   return (
     <div className='content-container'>
-      <h1 className='content-title'>{courseTitle} Course</h1>
+      <h1 className='content-title'>{courseTitle} {text.courseTitle}</h1>
       <div>
         {messages.map((msg, index) => (
           <div key={index} className="message-box" dangerouslySetInnerHTML={{ __html: msg }}></div>
         ))}
       </div>
-      {isLoading && <p className="loading-text">Loading{loadingDots}</p>}
+      {isLoading && <p className="loading-text">{text.courseLoadingMsg}{loadingDots}</p>}
       <div className='button-container'>
         {!isReady ? (
-          <button className="button-style" onClick={() => handleReady("I am ready. Please start teaching me the course")}>Ready</button>
+          <button className="button-style" onClick={() => handleReady(text.courseReadyPrompt)}>{text.courseReady}</button>
         ) : (
           <>
-            <button className="button-style" onClick={() => handleNext("Please continue teaching me the course")}>Continue</button>
-            <button className="button-style" onClick={() => handleNext("Please explain that again, differently, I am not sure I quite understand")}>Explain Further</button>
+            <button className="button-style" onClick={() => handleNext(text.courseContinuePrompt)}>{text.courseContinue}</button>
+            <button className="button-style" onClick={() => handleNext(text.courseExplainPrompt)}>{text.courseExplain}</button>
             <div>
-              <input type="text" placeholder="Custom message" value={customMessage} onChange={(e) => setCustomMessage(e.target.value)} className="input-style" />
-              <button className="button-style" onClick={handleCustomInput}>Submit</button>
+              <input type="text" placeholder={text.courseCustominput} value={customMessage} onChange={(e) => setCustomMessage(e.target.value)} className="input-style" />
+              <button className="button-style" onClick={handleCustomInput}>{text.courseSubmit}</button>
             </div>
           </>
         )}
         <div>
-          <button className="button-style" onClick={onLeaveClass}>Leave Class</button>
+          <button className="button-style" onClick={onLeaveClass}>{text.courseLeave}</button>
         </div>
       </div>
     </div>

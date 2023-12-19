@@ -8,21 +8,26 @@ Manage language across app
 Is ready should be set upon get thread messages, so correct buttons are available in session
 
 
-Logo retrieval bug (console)
-    Ask gpt what the image is supposed to do, then consider replacing it
-
-
 Course Selection component
     Upon opening Select Courses component the currently selected courses should be checked/selected on UI
     Course selection submit notification should be displayed in app UI instead of popup
+        Or simply return to Curriculum view?
     Add STX + HTX courses
+    Some sort of visual identifier for HHX, STX, and HTX courses as some users will likely want to combine course across educations.
+        Courses should likely not share groups across studies even if almost identical (math A hhx vs math A stx, for instance)
+            therfore, a need for visual identification in the coursebox (not the course name)
 
 
 Error on user version Selection
 
 
-Various bugs based on states after having moved states to a context that results in incorrect rendering of UI
 
+GPTteacher
+    add optional voice output from GPT teacher text messages
+        later add the same for the Assistatn + optional voice input
+
+GPTassistant
+    Give context on site and functionality
 
 Courses
     Progress should be a variable that depends on number of thread messages to start with (later a algo where the GPT evaluates teached content in relation to total syllabus)

@@ -104,6 +104,18 @@
     "id22CourseName": "Tysk Fortsættersprog B",
     "id23CourseName": "Tysk Begyndersprog A",
     "id24CourseName": "Virksomhedsøkonomi A",
-    "id25CourseName": "Virksomhedsøkonomi B"
+    "id25CourseName": "Virksomhedsøkonomi B",
+
+    "courseTitle": "Klasse",
+    "courseReady": "Klar",
+    "courseReadyPrompt": "Jeg er klar. Venligst start med at lære mig faget - gerne start med en introduktion",
+    "courseLeave": "Forlad klasse",
+    "courseContinue": "Fortsæt",
+    "courseContinuePrompt": "Venligst fortsæt med at lære mig faget",
+    "courseExplain": "Forklar nærmere",
+    "courseExplainPrompt": "Venligst forklar det igen på en anderledes måde. Jeg er ikke sikker på jeg forstår",
+    "courseCustominput": "Tilpasset meddelelse",
+    "courseSubmit": "Send",
+    "courseLoadingMsg": "Tænker"
 
 }  

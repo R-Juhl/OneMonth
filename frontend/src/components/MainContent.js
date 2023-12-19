@@ -17,9 +17,10 @@ import Profile from './Profile';
 import Settings from './Settings';
 
 const MainContent = ({ isSidebarExpanded, setIsSidebarExpanded, avatars, setAvatar, currentView, setCurrentView }) => {
-    const { userVersion, isLoggedIn, loggedInUserId, handleUserVersionSelect } = useContext(UserIdContext);
+    const { userVersion, isLoggedIn, handleUserVersionSelect } = useContext(UserIdContext);
     const { language } = useLanguage();
     const text = language === 'en' ? en : dk;
+    // eslint-disable-next-line no-unused-vars
     const [currentTab, setCurrentTab] = React.useState('');
     const [selectedCourseId, setSelectedCourseId] = React.useState(null);
     const [showStartModal, setShowStartModal] = useState(false);
@@ -28,8 +29,6 @@ const MainContent = ({ isSidebarExpanded, setIsSidebarExpanded, avatars, setAvat
     const [showHowitworksModal, setShowHowitworksModal] = useState(false);
     const [CourseTitle, setCurrentCourseTitle] = useState("");
 
-    const permanentTabs = 
-        ['Howitworks', 'Profile', 'Settings'];
     const conditionalTabs = isLoggedIn && userVersion 
     ? [
         { name: text.tabsCurriculumTitle, component: "Curriculum", priority: 1 }, // Show Curriculum tab if userVersion exists
@@ -70,15 +69,15 @@ const MainContent = ({ isSidebarExpanded, setIsSidebarExpanded, avatars, setAvat
     };
 
     const handleCourseSessionStart = useCallback((courseId, courseTitle, loggedInUserId) => {
-        console.log("handleCourseSessionStart called with courseId:", courseId, "courseTitle:", courseTitle, "userId:", loggedInUserId);
+        console.log("handleCourseSessionStart called with courseId:", courseId, "courseTitle:", courseTitle, "loggedInUserId:", loggedInUserId);
         setSelectedCourseId(courseId);
         setCurrentCourseTitle(courseTitle);
         setCurrentView('VariableContent');
-    }, []);
+    }, [setCurrentView]);
 
     const handleLeaveClass = useCallback(() => {
         setCurrentView('Curriculum');
-    }, []);
+    }, [setCurrentView]);
 
     return (
         <div className={`Main-container ${isSidebarExpanded ? 'expanded' : 'collapsed'}`}>

@@ -39,7 +39,7 @@ function Settings({ showSettingsModal, setShowSettingsModal, setAvatar, avatars 
 
     return (
         <Modal
-            className="modal"
+            className="settingsModal"
             isOpen={showSettingsModal}
             onRequestClose={() => setShowSettingsModal(false)}
         >

@@ -104,8 +104,19 @@
     "id22CourseName": "German Continuers Language B",
     "id23CourseName": "German Beginners Language A",
     "id24CourseName": "Business Economics A",
-    "id25CourseName": "Business Economics B"
+    "id25CourseName": "Business Economics B",
 
+    "courseTitle": "Course",
+    "courseReady": "Ready",
+    "courseReadyPrompt": "I am ready. Please start teaching me the course - preferably start with an introduction",
+    "courseLeave": "Leave Class",
+    "courseContinue": "Continue",
+    "courseContinuePrompt": "Please continue teaching me the course",
+    "courseExplain": "Explain further",
+    "courseExplainPrompt": "Please explain that again, differently, I am not sure I quite understand",
+    "courseCustominput": "Custom message",
+    "courseSubmit": "Submit",
+    "courseLoadingMsg": "Thinking"
     
 }
   

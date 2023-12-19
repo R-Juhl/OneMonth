@@ -1,5 +1,5 @@
 //App.js
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
 import './App.css';
 import { LanguageProvider } from './contexts/LanguageContext';
@@ -19,12 +19,14 @@ function App() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
   const [currentView, setCurrentView] = useState('Curriculum');
 
+  /*
   const setViewToCurriculum = useCallback(() => {
     setCurrentView('Curriculum');
   }, []);
+  */
 
   return (
-    <UserIdProvider setViewToCurriculum={setViewToCurriculum}>
+    <UserIdProvider setCurrentView={setCurrentView}>
       <LanguageProvider>
         <LanguageManager>
           <div>

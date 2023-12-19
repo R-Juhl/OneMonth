@@ -170,9 +170,10 @@ def handle_get_thread_messages():
 @app.route('/course_initial', methods=['GET'])
 def handle_initial():
     thread_id = request.args.get('thread_id')
-    course_title = request.args.get('course_title')
-    print(f"Recerived course_title:", course_title)
-    return get_initial_message(thread_id, course_title)
+    course_id = request.args.get('course_id')
+    user_id = request.args.get('user_id')
+    print(f"User ID received in handle_initial: {user_id}")
+    return get_initial_message(thread_id, user_id, course_id)
 
 # Route for continuing a course #
 @app.route('/course_continue', methods=['POST'])

@@ -11,7 +11,7 @@ function Profile({ showProfileModal, setShowProfileModal }) {
 
     return (
         <Modal
-            className="modal"
+            className="profileModal"
             isOpen={showProfileModal}
             onRequestClose={() => setShowProfileModal(false)}
         >

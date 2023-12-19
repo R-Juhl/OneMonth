@@ -7,7 +7,7 @@
 
 /* PROFILE STYLES */
 
-.modal {
+.profileModal {
   background-color: #9DBEBB;
     color: #031926;
     border-radius: 8px;
@@ -18,12 +18,12 @@
     margin: auto;
 }
 
-.modal h2 {
+.profileModal h2 {
   color: #031926;
   text-align: center;
 }
 
-.modal button {
+.profileModal button {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
@@ -38,11 +38,11 @@
   font-family: Montserrat;
 }
 
-.modal button:hover {
+.profileModal button:hover {
   background-color: #77ACA2;
 }
 
-.modal img {
+.profileModal img {
   cursor: pointer;
   height: 50px;
   border-radius: 15px;

@@ -3,7 +3,7 @@ import os
 import openai
 from flask import jsonify
 import time
-from .models import db, UserCourseSession
+from .models import db, User, UserCourseSession
 from .assistant_config import assistant_ids, assistant_configs
 
 client = openai.OpenAI(
@@ -17,14 +17,24 @@ class Teacher:
 def get_course_thread(user_id, course_id):
     session = UserCourseSession.query.filter_by(user_id=user_id, course_id=course_id).first()
 
-    # Update assistant based on course_id
-    assistant_config = assistant_configs.get(course_id)
+    # Retrieve user language preference from the database
+    user = User.query.filter_by(id=user_id).first()
+    if not user:
+        print(f"From get_course_thread: User with ID {user_id} not found")
+        user_lang = 'en'  # default to English
+    else:
+        user_lang = user.language
+        print(f"From get_course_thread: Fetched User Language: {user_lang}")
+
+    # Update assistant based on course_id and user's language
+    assistant_config = assistant_configs.get(int(course_id), {}).get(user_lang, {})
+
     if assistant_config:
         # Update the assistant with the new configuration
         client.beta.assistants.update(
             assistant_id=assistant_ids[course_id],
-            instructions=assistant_config["instructions"],
-            name=assistant_config["name"],
+            instructions=assistant_config.get("instructions", ""),
+            name=assistant_config.get("name", "AI Assistant"),
         )
 
     if not session:
@@ -54,11 +64,25 @@ def get_thread_messages(thread_id):
     
     return messages_list
 
-def get_initial_message(thread_id, course_title):
+def get_initial_message(thread_id, user_id, course_id):
+    # Retrieve user language preference from the database
+    user = User.query.filter_by(id=user_id).first()
+    if not user:
+        print(f"From get_initial_message: User with ID {user_id} not found")
+        user_lang = 'en'  # default to English
+    else:
+        user_lang = user.language
+        print(f"From get_initial_message: Fetched User Language: {user_lang}")
+
+    assistant_config = assistant_configs.get(int(course_id), {}).get(user_lang, {})
+    print(f"Assistant Config in get_initial_message: {assistant_config}")  # Additional Debug Log
+
+    initial_content = assistant_config.get("initial_message", "Welcome to the course.")
+    print(f"Initial Content in get_initial_message: {initial_content}")  # Additional Debug Log
+
     if not thread_id:
         raise ValueError("No thread ID provided for initial message")
 
-    initial_content = f"Hi, I am your AI teacher in {course_title}. Let me know when you are ready for your class"
     message_response = client.beta.threads.messages.create(
         thread_id=thread_id,
         role="user",
