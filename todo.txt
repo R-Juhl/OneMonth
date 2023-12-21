@@ -1,12 +1,23 @@
 
+
+Welcome sections not appearing on first scrolldown in Welcome.js
+
+Font management
+
+Current view (plus modal open/close logic) should set sidebar buttons in selected state
+
+Icons for GetStarted modal
+
+Establish fixed dark mode color palette
+
+Redo all modals and visual components according to same style
+
+
 GPTteacher - text to speech and speech to text
-    add optional voice output from GPT teacher text messages
-        later add the same for the Assistatn + optional voice input
     Add stream to live
     add pause/stop audio button.
-
-
-Translate course selection component
+    voice to text?
+    Later add same for the Assistatn + optional voice input
 
 
 Course Selection component
@@ -27,6 +38,9 @@ Error on user version Selection
 
 GPTassistant
     Give context on site and functionality
+
+
+Filter for course boxes (alphabetical, progress, mastery, etc.)
 
 
 Courses

@@ -7,9 +7,9 @@
 
 /* SETTINGS STYLES */
 
-.settingsModal {
-  background-color: #9DBEBB;
-  color: #031926;
+.settings-modal {
+  background-color: #2D5262;
+  color: #F4E9CD;
   border-radius: 8px;
   padding: 20px;
   width: 60%;
@@ -18,16 +18,16 @@
   margin: auto;
 }
 
-.settingsModal h2 {
-  color: #031926;
+.settings-modal h2 {
+  color: #F4E9CD;
   text-align: center;
 }
 
-.settingsModal button {
+.settings-modal button {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
-  background-color: #468189;
+  background-color: #2FB1A2;
   color: #F4E9CD;
   border: none;
   border-radius: 4px;
@@ -38,18 +38,18 @@
   font-family: Montserrat;
 }
 
-.settingsModal button:hover {
-  background-color: #77ACA2;
+.settings-modal button:hover {
+  background-color: #3fcdb3;
 }
 
 /* Language Selector Styles */
-.settingsModal select {
+.settings-modal select {
   width: 100%;
   padding: 8px 12px;
-  border: 1px solid #468189;
+  border: 1px solid #2FB1A2;
   border-radius: 4px;
-  background-color: white;
-  color: #031926;
+  background-color: #1A2F38;
+  color: #F4E9CD;
   cursor: pointer;
   appearance: none;
   -moz-appearance: none;
@@ -61,17 +61,17 @@
   font-size: 15px;
 }
 
-.settingsModal select:hover {
+.settings-modal select:hover {
   border-color: #77ACA2;
 }
 
-.settingsModal option {
-  color: #031926;
-  background-color: white;
+.settings-modal option {
+  color: #F4E9CD;
+  background-color: #1A2F38;
   padding: 8px;
 }
 
-.settingsModal img {
+.settings-modal img {
   cursor: pointer;
   height: 50px;
   scale: 130%;
@@ -80,11 +80,11 @@
   transition: transform 0.3s ease;
 }
 
-.settingsModal img:hover {
+.settings-modal img:hover {
   transform: scale(1.1);
 }
 
-.settingsModal img.clicked {
+.settings-modal img.clicked {
   transform: scale(1.5);
   transition: transform 0.15s ease;
 }

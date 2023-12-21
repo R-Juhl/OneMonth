@@ -2,18 +2,19 @@
 
 .curriculum-container {
   color: #fff; /* Change text color to white */
-  padding-top: 20px;
-  margin: 5vh auto; /* Center the container */
+  padding-top: 100px;
+  margin: 0 auto; /* Find better way to center container */
   max-width: 70vw;
   text-align: center;
 }
 
 .curriculum-title {
-  color: #031926; /* Keep the Curriculum title color */
+  color: #fff; /* Keep the Curriculum title color */
+  font-weight: bold;
 }
 
 .overview-box {
-  background-color: #9DBEBB;
+  background-color: #1A2F38;
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 30px; /* Increased space between overview and course boxes */

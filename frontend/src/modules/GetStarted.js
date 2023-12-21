@@ -98,6 +98,15 @@ function GetStarted({ showStartModal, setShowStartModal, onUserVersionSelect, on
       className="modal-getstarted"
       isOpen={showStartModal}
       onRequestClose={() => closeModal('usernotloggedinError')}
+      style={{
+        overlay: {
+          backgroundColor: 'rgba(0, 0, 0, 0.75)', // Dark semi-transparent background
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000
+        }
+      }}
     >
       {/* Modal content */}
       <div className="get-started-container">

@@ -1,42 +1,63 @@
+/*** TABS STYLES ***/
+
 .tabs-container {
   display: flex;
   flex-direction: column;
   padding-top: 40px;
   height: 85vh;
-  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 1000;
 }
 
 .tab-button {
-  background: #9DBEBB;
+  background: #2FB1A2;
   border: none;
-  color: #031926;
   padding: 20px;
-  width: 75%;
-  text-align: left;
   cursor: pointer;
-  font-size: 20px;
-  font-weight: bold;
   margin: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
-  position: relative;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.tab-button-text {
+.tab-button:hover {
+  background: #3fcdb3;
+  border-radius: 20px;
+}
+
+.tab-button svg {
+  width: 30px;
+  height: 30px;
+  color: #F4E9CD; /* Set icon color to white */
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 120px;
+  background-color: #1A2F38;
+  color: #F4E9CD;
+  text-align: center;
+  border-radius: 6px;
+  padding: 15px 0;
+  padding-left: 5px;
+  padding-right: 5px;
   position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  transition: opacity 0.2s ease;
-  font-family: Montserrat;
-}
-
-.tabs-container.collapsed .tab-button-text {
+  z-index: 1;
+  left: 110%;
+  margin-left: 10px;
   opacity: 0;
+  transition: opacity 0.3s;
 }
 
-.tabs-container.collapsed {
-  transform: translateX(-100px);
+.tab-button:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+  font-size: large;
+  font-family: Montserrat;
+  font-weight: bold;
 }
 
 .spacer {

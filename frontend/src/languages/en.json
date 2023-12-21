@@ -74,10 +74,12 @@
     "pointsEarned": "Points earned",
     "exercisesCompleted": "Exercises completed",
     "startClass": "Start Class",
-    "continueClass": "Continue Class",
+    "continueClass": "Continue Course",
 
     "selectcoursesTitle": "Select education and courses",
     "selectcoursesSubmit": "Submit",
+    "selectcoursesSelectall": "Select All Courses",
+    "selectcoursesDeselectall": "Deselect All Courses",
 
     "id1CourseName": "Marketing  A",
     "id2CourseName": "Marketing  B",

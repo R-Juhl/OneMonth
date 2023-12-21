@@ -14,6 +14,15 @@ function Howitworks({ showHowitworksModal, setShowHowitworksModal }) {
             className="howitworksModal"
             isOpen={showHowitworksModal}
             onRequestClose={() => setShowHowitworksModal(false)}
+            style={{
+                overlay: {
+                  backgroundColor: 'rgba(0, 0, 0, 0.75)', // Dark semi-transparent background
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  zIndex: 1000
+                }
+            }}
         >
             {/* Modal content */}
             <h2>{text.howitworksModalTitle}</h2>

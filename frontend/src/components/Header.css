@@ -2,8 +2,8 @@
 
 .header {
   width: 100vw;
-  background-color: #031926;
-  color: white;
+  background-color: #0D181C;
+  color: #F4E9CD;
   position: fixed;
   height: 60px;
   padding: 10px;
@@ -33,13 +33,17 @@
 }
 
 .header-button {
-  color: white;
+  color: #F4E9CD;
   background: none;
   border: none;
   cursor: pointer;
   padding: 5px;
   margin: 5px;
   font-family: Montserrat;
+}
+
+.header-button:hover {
+  color: #3fcdb3;
 }
   
 .header-logo {

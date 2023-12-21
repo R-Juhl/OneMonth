@@ -6,6 +6,8 @@ import { useLanguage } from '../contexts/LanguageContext';
 import en from '../languages/en.json';
 import dk from '../languages/dk.json';
 
+import { HiOutlineVolumeUp, HiOutlineVolumeOff, HiPlusCircle, HiMicrophone } from "react-icons/hi";
+
 const VariableContent = ({ courseId, courseTitle, onLeaveClass }) => {
   const { loggedInUserId } = useContext(UserIdContext);
   const { language } = useLanguage();
@@ -169,7 +171,7 @@ const VariableContent = ({ courseId, courseTitle, onLeaveClass }) => {
         {messages.map((msg, index) => (
           <div key={index} className="message-container">
             <div className="message-box" dangerouslySetInnerHTML={{ __html: msg }}></div>
-            <button onClick={() => handleTTSButtonClick(msg)}>🔊</button>
+            <button onClick={() => handleTTSButtonClick(msg)}><HiOutlineVolumeUp /></button>
           </div>
         ))}
         {isPlaying && <audio src={audioSrc} autoPlay onEnded={() => setIsPlaying(false)} />}

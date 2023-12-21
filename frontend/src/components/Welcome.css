@@ -1,36 +1,155 @@
 /* WELCOME COMPONENT STYLES */
 
 .welcome-container {
-  max-width: 70%;
-  margin: 0 auto;
-  padding: 20px;
+  max-width: 100vw;
+  min-height: 175vh;
+  margin-left: 80px;
+  margin-top: 80px;
+  color: #F4E9CD;
+  position: relative;
+  overflow: hidden;
+}
+
+.parallax-layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 235vh;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Set z-index if needed for your layers */
+.parallax-layer:nth-child(1) {
+  background-position: 50% calc(50% - var(--scroll-position) * 1.2);
+  z-index: 9;
+}
+.parallax-layer:nth-child(2) {
+  background-position: 50% calc(50% - var(--scroll-position) * 1.0);
+  z-index: 8;
+}
+.parallax-layer:nth-child(3) {
+  background-position: 50% calc(50% - var(--scroll-position) * 0.8);
+  z-index: 7;
+}
+.parallax-layer:nth-child(4) {
+  background-position: 50% calc(50% - var(--scroll-position) * 0.6);
+  z-index: 6;
+}
+.parallax-layer:nth-child(5) {
+  background-position: 50% calc(50% - var(--scroll-position) * 0.4);
+  z-index: 5;
+}
+.parallax-layer:nth-child(6) {
+  background-position: 50% calc(50% - var(--scroll-position) * 0.2);
+  z-index: 4;
+  opacity: 30%;
+}
+.parallax-layer:nth-child(7) {
+  background-position: 50% calc(50% - var(--scroll-position) * 0.01);
+  z-index: 3;
+}
+
+
+.sections-container {
+  position: relative; /* Allows absolute positioning relative to this container */
+  z-index: 10; /* Above parallax layers */
   padding-top: 100px;
-  padding-bottom: 0px;
-  color: #031926;
 }
 
 .welcome-title {
-  color: #031926;
+  color: #F4E9CD;
   font-family: 'Bold', sans-serif;
+  font-size: 100px;
   text-align: center;
   margin-bottom: 30px;
+  margin-top: 80px;
+  position: relative;
+  z-index: 3;
+  animation: pulseShadow 3s infinite ease-in-out; /* Apply the animation */
+}
+
+.scrolldown-button, .scrollup-button {
+  background: #2FB1A2;
+  position: fixed;
+  border: none;
+  left: 50%;
+  padding: 20px;
+  margin: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  animation: fadeIn 1s;
+  opacity: 1;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 1.3);
+  z-index: 1000;
+}
+
+.scrolldown-button {
+  bottom: 10%;
+}
+
+.scrollup-button {
+  top: 10%;
+}
+
+.scrolldown-button:hover, .scrollup-button:hover {
+  background-color: #3fcdb3;
+  border-radius: 20px;
+}
+
+.scrolldown-button svg, .scrollup-button svg {
+  width: 50px;
+  height: 50px;
+  color: #F4E9CD; /* Set icon color to white */
+}
+
+.scrolldown-button.hidden, .scrollup-button.hidden {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .welcome-section {
-  background-color: #F4E9CD;
+  background-color: #1A2F38;
+  max-width: 50vw;
+  margin: 0 auto;
   border-radius: 10px;
   margin-bottom: 20px;
+  top: 150px;
+  margin-top: 30px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 100;
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
+.welcome-section.visible {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.welcome-section:not(.visible) {
+  opacity: 0;
+  transform: scale(0);
+}
+
+/*
 .welcome-section:hover {
   transform: translateY(-5px);
-}
+}*/
 
 .final-section {
-  background-color: #9DBEBB;
+  background-color: #0D181C;
+  z-index: 100;
 }
 
 .welcome-section p {
@@ -40,11 +159,14 @@
 }
 
 .welcome-section strong {
-  color: #468189;
+  color: #2FB1A2;
+}
+.welcome-section:hover strong {
+  color: #3fcdb3;
 }
 
 .welcome-section em {
-  color: #031926;
+  color: #F4E9CD;
   font-style: italic;
 }
 
@@ -53,4 +175,25 @@
   .welcome-container {
     padding: 10px;
   }
+
+  .parallax-layer {
+    background-attachment: scroll; /* Fix for mobile devices */
+  }
+}
+
+
+/* Welcome Title Styles with Animation */
+@keyframes pulseShadow {
+  0%, 100% {
+    text-shadow: 0 0 10px #F4E9CD, 0 0 20px #F4E9CD, 0 0 30px #F4E9CD;
+  }
+  50% {
+    text-shadow: 0 0 20px #F4E9CD, 0 0 30px #F4E9CD, 0 0 40px #F4E9CD;
+  }
+}
+
+/* Keyframes for Fade In Animation */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

@@ -78,6 +78,8 @@
 
     "selectcoursesTitle": "Vælg uddannelse og fag",
     "selectcoursesSubmit": "Vælg",
+    "selectcoursesSelectall": "Vælg alle fag",
+    "selectcoursesDeselectall": "Fravælg alle fag",
 
     "id1CourseName": "Afsætning A",
     "id2CourseName": "Afsætning B",

@@ -96,7 +96,20 @@ function Header() {
         </div>
       </div>
       {/* Sign-Up Modal */}
-      <Modal className="modal" isOpen={showSignUp} onRequestClose={() => closeModal('signUp')}>
+      <Modal 
+        className="modal" 
+        isOpen={showSignUp} 
+        onRequestClose={() => closeModal('signUp')}
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.75)', // Dark semi-transparent background
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000
+          }
+        }}
+      >
         <h2>{text.headerModalSignuptitle}</h2>
         <form onSubmit={handleSignUpSubmit}>
           <input type="text" name="name" placeholder={text.headerModalName} onChange={(e) => handleChange(e, 'signup')} value={userData.name} />
@@ -110,7 +123,20 @@ function Header() {
       </Modal>
 
       {/* Login Modal */}
-      <Modal className="modal" isOpen={showLogin} onRequestClose={() => closeModal('login')}>
+      <Modal 
+        className="modal" 
+        isOpen={showLogin} 
+        onRequestClose={() => closeModal('login')}
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.75)', // Dark semi-transparent background
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000
+          }
+        }}
+      >
         <h2>{text.headerModalLogintitle}</h2>
         <form onSubmit={handleLoginSubmit}>
           <input type="email" name="email" placeholder={text.headerModalEmail} onChange={(e) => handleChange(e, 'login')} value={loginData.email} />

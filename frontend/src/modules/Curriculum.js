@@ -8,7 +8,7 @@ import CourseBox from './CourseBox';
 import CoursesData from './CoursesData';
 import UserIdContext from '../contexts/UserIdContext';
 
-const Curriculum = ({ course, onStartCourse }) => {
+const Curriculum = ({ onStartCourse }) => {
     const { loggedInUserId } = useContext(UserIdContext);
     const { language } = useLanguage();
     const text = language === 'en' ? en : dk;

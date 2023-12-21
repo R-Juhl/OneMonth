@@ -11,6 +11,7 @@ const SelectCourses = () => {
     const { loggedInUserId } = useContext(UserIdContext);
     const { language } = useLanguage();
     const text = language === 'en' ? en : dk;
+    const translations = language === 'en' ? en : dk;
     const [selectedEducation, setSelectedEducation] = useState('');
     const [selectedCourses, setSelectedCourses] = useState(new Set());
     const [fetchedCourses, setFetchedCourses] = useState(new Set());
@@ -114,6 +115,11 @@ const SelectCourses = () => {
             return acc;
         }, {});
 
+    const translatedCourses = CoursesData.map(course => ({
+        ...course,
+        title: translations[course.titleKey] || course.title // Fallback to original title if translation is not found
+    }));
+
     return (
         <div className="selectcourses-container">
             <h1>{text.selectcoursesTitle}</h1>
@@ -133,23 +139,26 @@ const SelectCourses = () => {
             {selectedEducation && (
                 <>
                     <button className="select-all-button" onClick={handleSelectAllToggle}>
-                        {selectAll ? 'Deselect All Courses' : 'Select All Courses'}
+                        {selectAll ? text.selectcoursesDeselectall : text.selectcoursesSelectall}
                     </button>
                     <div className="courses-list">
                         {Object.entries(groupedCourses).map(([groupID, courses]) => (
                             <div key={groupID} className="course-group">
-                                {courses.map(course => (
-                                    <div key={course.id} className={`course-item ${selectedCourses.has(course.id) ? 'selected' : ''}`}>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                checked={selectedCourses.has(course.id)}
-                                                onChange={() => handleCourseSelect(course.id, course.groupID)}
-                                            />
-                                            {course.title}
-                                        </label>
-                                    </div>
-                                ))}
+                                {courses.map(course => {
+                                    const translatedCourse = translatedCourses.find(c => c.id === course.id);
+                                    return (
+                                        <div key={course.id} className={`course-item ${selectedCourses.has(course.id) ? 'selected' : ''}`}>
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={selectedCourses.has(course.id)}
+                                                    onChange={() => handleCourseSelect(course.id, course.groupID)}
+                                                />
+                                                {translatedCourse.title}
+                                            </label>
+                                        </div>
+                                    );
+                                })}
                             </div>
                         ))}
                     </div>

@@ -8,8 +8,8 @@
 /* PROFILE STYLES */
 
 .modal-getstarted {
-  background-color: #9DBEBB;
-  color: #031926;
+  background-color: #2D5262;
+  color: #F4E9CD;
   border-radius: 8px;
   padding: 20px;
   width: 60%;
@@ -20,7 +20,7 @@
 }
 
 .modal-getstarted h2 {
-  color: #031926;
+  color: #F4E9CD;
   text-align: center;
 }
 
@@ -28,7 +28,7 @@
   width: 100%;
   padding: 10px;
   margin-top: 10px;
-  background-color: #468189;
+  background-color: #2FB1A2;
   color: #F4E9CD;
   border: none;
   border-radius: 4px;
@@ -40,7 +40,7 @@
 }
 
 .momodal-getstartedal button:hover {
-  background-color: #77ACA2;
+  background-color: #3fcdb3;
 }
 
 .modal-getstarted img {
@@ -65,8 +65,8 @@
 }
 
 .box {
-  background-color: #F4E9CD;
-  color: #031926;
+  background-color: #1A2F38;
+  color: #F4E9CD;
   padding: 10px;
   padding-bottom: 40px;
   margin: 20px;
@@ -116,11 +116,16 @@
   margin-bottom: 10px;
 }
 
+.box:hover h3 {
+  color: #3fcdb3;
+  font-weight: bold;
+}
+
 .select-button {
   padding: 10px;
   margin-top: 10px;
   visibility: hidden;
-  background-color: #468189;
+  background-color: #2FB1A2;
   color: #F4E9CD;
   border: none;
   border-radius: 4px;
@@ -134,7 +139,7 @@
 }
 
 .select-button:hover {
-  background-color: #77ACA2;
+  background-color: #3fcdb3;
 }
 
 .box:hover .select-button {
@@ -144,5 +149,5 @@
 }
 
 .close-button:hover {
-  background-color: #77ACA2;
+  background-color: #3fcdb3;
 }

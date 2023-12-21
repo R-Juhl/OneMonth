@@ -80,7 +80,7 @@ const MainContent = ({ isSidebarExpanded, setIsSidebarExpanded, avatars, setAvat
     }, [setCurrentView]);
 
     return (
-        <div className={`Main-container ${isSidebarExpanded ? 'expanded' : 'collapsed'}`}>
+        <div className="Main-container">
 
             <Sidebar
                 isExpanded={isSidebarExpanded}
