@@ -37,11 +37,28 @@ app = Flask(__name__)
 cors_origin = os.environ.get("CORS_ORIGIN", "http://localhost:3000")
 CORS(app, origins=[cors_origin])
 
-# Database configuration
+# Database configuration (local machine hosting)
+postgres_user_local = os.environ.get("POSTGRES_USER_LOCAL")
+#postgres_pw_local = os.environ.get("POSTGRES_PW_LOCAL")
+#postgres_db = 'postgres'
+#app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{postgres_user}:{postgres_pw}@localhost:5432/{postgres_db}'
+
+
+# Database configuration (DigitalOcean hosting)
 postgres_user = os.environ.get("POSTGRES_USER")
 postgres_pw = os.environ.get("POSTGRES_PW")
-postgres_db = 'postgres'
-app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{postgres_user}:{postgres_pw}@localhost:5432/{postgres_db}'
+postgres_host = os.environ.get("POSTGRES_HOST")
+postgres_port = os.environ.get("POSTGRES_PORT")
+postgres_db = os.environ.get("POSTGRES_DB")
+print("DB User:", postgres_user)
+print("DB Password:", postgres_pw)
+print("DB Host:", postgres_host)
+print("DB Port:", postgres_port)
+print("DB Name:", postgres_db)
+app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{postgres_user}:{postgres_pw}@{postgres_host}:{postgres_port}/{postgres_db}?sslmode=require'
+
+
+
 app.config['SECRET_KEY'] = os.environ.get("SECRET_TOKEN_KEY")
 
 # Initialize SQLAlchemy with the app
